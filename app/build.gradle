@@ -29,7 +29,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
     kotlinOptions {
@@ -41,14 +41,14 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
+//    implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //Retrofit 2
     def retrofit_version = "2.9.0"
 
-    implementation"com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     // Gson
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     // glide
@@ -93,10 +93,10 @@ dependencies {
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$room_version")
 
-    implementation 'com.jakewharton.timber:timber:5.0.1'
-    // paging 3
-    def paging_version = "3.0.0"
-    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    // Paging 3
+    def paging_version = "3.0.1"
+    //noinspection GradleDependency
+    implementation("androidx.paging:paging-runtime-ktx:$paging_version")
 
 
 //    // ViewBinding Property Delegate
@@ -105,9 +105,11 @@ dependencies {
     // To use only without reflection variants of viewBinding
     implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:$view_binding_property_delegate"
 
-    // meowBottomNavigation
-//    implementation 'com.etebarian:meow-bottom-navigation:1.3.1'
-//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // coordinatorLayout
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
+
+// Material Design Components
+    implementation 'com.google.android.material:material:1.4.0'
 
 
 }
