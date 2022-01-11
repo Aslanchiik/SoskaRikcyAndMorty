@@ -8,5 +8,14 @@ data class CharacterModel(
     var image: String,
     var status: String,
     var species: String,
-    var location: Any
+    var location: CharacterLocation,
+    var type: String,
+    val episode: ArrayList<String>,
+    var gender: String,
+    val created: String
 ) : BaseInterfaceCallback
+
+data class CharacterLocation(
+    val name: String,
+    val url: String
+)
