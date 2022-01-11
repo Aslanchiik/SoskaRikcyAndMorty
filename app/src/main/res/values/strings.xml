@@ -2,4 +2,21 @@
     <string name="app_name">SoskaRikcyAndMorty</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_detail_character">Character:</string>
+    <string name="fragment_detail_episode">Episode:</string>
+    <string name="fragment_detail_location">Location:</string>
+
+    <string-array name="status">
+        <item> Alive</item>
+        <item> Dead</item>
+        <item> unknown</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item> female</item>
+        <item> male</item>
+        <item> genderless</item>
+        <item> unknown</item>
+    </string-array>
+
 </resources>

@@ -1,56 +1,112 @@
 package com.example.soskarikcyandmorty.ui.fragments.location
 
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.soskarikcyandmorty.R
 import com.example.soskarikcyandmorty.bases.BaseFragment
+import com.example.soskarikcyandmorty.common.exensions.searchItem
 import com.example.soskarikcyandmorty.databinding.FragmentLocationBinding
-import com.example.soskarikcyandmorty.domain.models.LocationModel
-import com.example.soskarikcyandmorty.presentation.state.UIState
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.LocationAdapter
+import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location) {
 
     override val binding by viewBinding(FragmentLocationBinding::bind)
     private val viewModel: LocationViewModel by viewModels()
-    private val lLayoutManager: LinearLayoutManager = LinearLayoutManager(context)
-    private val locationAdapter: LocationAdapter = LocationAdapter()
+    private val locationAdapter: LocationAdapter = LocationAdapter(this::onItemClick)
+    private val isConnect = true
+    private val args: LocationFragmentArgs by navArgs()
 
     override fun initialize() {
+        setupConnection()
+    }
+
+    private fun setupConnection() {
+        NetworkConnectionLiveData(context ?: return)
+            .observe(viewLifecycleOwner, { isConnected ->
+                if (!isConnected)
+                    findNavController().navigate(R.id.noConnectFragment)
+            })
+    }
+
+    override fun setupViews() {
         setupRecyclerView()
     }
 
     private fun setupRecyclerView() {
         binding.locationRecView.apply {
-            layoutManager = lLayoutManager
+            layoutManager = LinearLayoutManager(requireContext())
             adapter = locationAdapter
         }
-        binding.locationRecView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0) {
-                    val firstVisibleItemPosition = lLayoutManager.findFirstVisibleItemPosition()
-                    val visibleItemCount = lLayoutManager.childCount
-                    val totalItemCount = lLayoutManager.itemCount
-                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
-                        viewModel.page++
-                        viewModel.fetchLocation(viewModel.page)
-                    }
-                }
-            }
-        })
     }
 
     override fun setupRequest() {
+        if (args.type == "" && args.dimension == "") {
+            viewModel.fetchLocations("", "", "")
+        } else {
+            viewModel.fetchLocationsFilter("", args.type, args.dimension)
+        }
+    }
+
+    override fun setupObserves() {
+        if (isConnect) {
+            if (args.type == "" && args.dimension == "") {
+                viewModel.locationState.observe(viewLifecycleOwner, {
+                    lifecycleScope.launch {
+                        locationAdapter.submitData(it)
+                    }
+                })
+            } else {
+                viewModel.locationStateFilter.observe(viewLifecycleOwner, {
+                    lifecycleScope.launch {
+                        locationAdapter.submitData(it)
+                    }
+                })
+            }
+        }
+    }
+
+    private fun onItemClick(name: String, id: Int) {
+        findNavController().navigate(
+            LocationFragmentDirections.actionLocationFragmentToLocationDetailFragment(
+                label = "${getString(R.string.fragment_detail_location)}$name",
+                id = id
+            )
+        )
+    }
+
+    override fun setupListener() {
+        searchItem()
         bottomNavigationSelected()
-        fetchLocation()
-        fetchGetLocation()
+        filterListener()
+    }
+
+    private fun searchItem() {
+        if (args.type == "" && args.dimension == "") {
+            binding.searchLocation.searchItem {
+                viewModel.fetchLocations(
+                    it,
+                    "",
+                    ""
+                )
+            }
+        } else {
+            binding.searchLocation.searchItem {
+                viewModel.fetchLocationsFilter(
+                    it,
+                    args.type,
+                    args.dimension
+                )
+            }
+        }
     }
 
     private fun bottomNavigationSelected() {
@@ -59,26 +115,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         }
     }
 
-    private fun fetchLocation() {
-        viewModel.fetchLocation(1)
-    }
-
-    private fun fetchGetLocation() {
-        viewModel.locationState.observe(viewLifecycleOwner, {
-            binding.loaderLocation.isVisible = it is UIState.Loading
-            when (it) {
-                is UIState.Error -> {
-
-                }
-                is UIState.Loading -> {
-
-                }
-                is UIState.Success -> {
-                    val list = ArrayList<LocationModel>(locationAdapter.currentList)
-                    list.addAll(it.data)
-                    locationAdapter.submitList(list)
-                }
-            }
-        })
+    private fun filterListener() {
+        binding.filterFloatButton.setOnClickListener {
+            findNavController().navigate(R.id.action_locationFragment_to_locationDialogFragment)
+        }
     }
 }

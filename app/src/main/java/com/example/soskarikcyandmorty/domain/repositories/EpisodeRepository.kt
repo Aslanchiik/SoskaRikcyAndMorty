@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface EpisodeRepository {
 
-    fun fetchEpisode(page : Int) : Flow<Resource<List<EpisodeModel>>>
+    fun fetchEpisodeId(id: Int): Flow<Resource<EpisodeModel>>
 }

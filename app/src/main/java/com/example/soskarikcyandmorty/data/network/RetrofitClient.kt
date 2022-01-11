@@ -3,6 +3,7 @@ package com.example.soskarikcyandmorty.data.network
 import com.example.soskarikcyandmorty.constants.Constants.BASE_URL
 import com.example.soskarikcyandmorty.data.network.apiservices.CharacterApiService
 import com.example.soskarikcyandmorty.data.network.apiservices.EpisodeApiService
+import com.example.soskarikcyandmorty.data.network.apiservices.FilterApiService
 import com.example.soskarikcyandmorty.data.network.apiservices.LocationApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -35,5 +36,9 @@ class RetrofitClient {
 
     fun provideLocationService(): LocationApiService {
         return retrofitClient.create(LocationApiService::class.java)
+    }
+
+    fun provideFilterApiService(): FilterApiService {
+        return retrofitClient.create(FilterApiService::class.java)
     }
 }

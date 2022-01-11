@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocationRepository {
 
-    fun fetchLocation(page : Int) : Flow<Resource<List<LocationModel>>>
+    fun fetchLocationId(id: Int): Flow<Resource<LocationModel>>
 }

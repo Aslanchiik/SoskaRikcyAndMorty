@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/light"
+    android:minWidth="300dp"
+    android:minHeight="220dp"
+    tools:context=".ui.fragments.character.dialog.CharacterDialogFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/first_vertical_guid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/first_horizontal_guid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/second_vertical_guid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <AutoCompleteTextView
+        android:id="@+id/name_filter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:completionThreshold="1"
+        android:cursorVisible="false"
+        android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
+        android:drawablePadding="7dp"
+        android:drawableTint="@color/white"
+        android:hint="Выберите статус"
+        android:inputType="none"
+        android:textColor="@color/white"
+        android:drawableStart="@drawable/ic_rick"
+        android:textColorHint="@color/white"
+        android:textIsSelectable="true"
+        app:layout_constraintLeft_toRightOf="@+id/first_vertical_guid"
+        app:layout_constraintRight_toRightOf="@id/second_vertical_guid"
+        app:layout_constraintTop_toBottomOf="@id/first_horizontal_guid" />
+
+    <AutoCompleteTextView
+        android:id="@+id/gender_filter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@null"
+        android:completionThreshold="1"
+        android:drawablePadding="7dp"
+        android:cursorVisible="false"
+        android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
+        android:hint="Выберите пол"
+        android:textColor="@color/white"
+        android:drawableTint="@color/white"
+        android:drawableStart="@drawable/ic_pol"
+        android:textColorHint="@color/white"
+        android:textIsSelectable="true"
+        app:layout_constraintLeft_toRightOf="@+id/first_vertical_guid"
+        app:layout_constraintRight_toRightOf="@+id/second_vertical_guid"
+        app:layout_constraintTop_toBottomOf="@+id/name_filter" />
+
+    <Button
+        android:id="@+id/apply_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Применить"
+        app:layout_constraintTop_toBottomOf="@+id/gender_filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

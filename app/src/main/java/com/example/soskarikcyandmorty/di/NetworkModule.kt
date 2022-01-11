@@ -3,6 +3,7 @@ package com.example.soskarikcyandmorty.di
 import com.example.soskarikcyandmorty.data.network.RetrofitClient
 import com.example.soskarikcyandmorty.data.network.apiservices.CharacterApiService
 import com.example.soskarikcyandmorty.data.network.apiservices.EpisodeApiService
+import com.example.soskarikcyandmorty.data.network.apiservices.FilterApiService
 import com.example.soskarikcyandmorty.data.network.apiservices.LocationApiService
 import dagger.Module
 import dagger.Provides
@@ -33,5 +34,11 @@ object NetworkModule {
     @Provides
     fun provideLocationApiService(): LocationApiService {
         return retrofitClient.provideLocationService()
+    }
+
+    @Singleton
+    @Provides
+    fun provideFilterApiService(): FilterApiService {
+        return retrofitClient.provideFilterApiService()
     }
 }

@@ -13,12 +13,20 @@ data class EpisodeModelDto(
 
     @SerializedName("episode")
     var episode: String,
+
+    @SerializedName("air_date")
+    val air_date: String,
+
+    @SerializedName("created")
+    val created: String
 )
 
 fun EpisodeModelDto.toEpisode(): EpisodeModel {
     return EpisodeModel(
         id,
         name,
-        episode
+        episode,
+        air_date,
+        created
     )
 }

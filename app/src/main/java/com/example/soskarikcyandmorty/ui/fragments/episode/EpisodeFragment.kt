@@ -1,58 +1,112 @@
 package com.example.soskarikcyandmorty.ui.fragments.episode
 
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.soskarikcyandmorty.R
 import com.example.soskarikcyandmorty.bases.BaseFragment
+import com.example.soskarikcyandmorty.common.exensions.searchItem
 import com.example.soskarikcyandmorty.databinding.FragmentEpisodeBinding
-import com.example.soskarikcyandmorty.domain.models.EpisodeModel
-import com.example.soskarikcyandmorty.presentation.state.UIState
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.EpisodeAdapter
+import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_episode) {
 
     override val binding by viewBinding(FragmentEpisodeBinding::bind)
-    private val eLayoutManager: LinearLayoutManager = LinearLayoutManager(context)
-    private val episodeAdapter: EpisodeAdapter = EpisodeAdapter()
+    private val episodeAdapter: EpisodeAdapter = EpisodeAdapter(this::onItemClick)
     private val viewModel: EpisodeViewModel by viewModels()
+    private var isConnected = true
+    private val args: EpisodeFragmentArgs by navArgs()
 
     override fun initialize() {
+        setupConnection()
+    }
+
+    private fun setupConnection() {
+        NetworkConnectionLiveData(context ?: return)
+            .observe(viewLifecycleOwner, { isConnected ->
+                if (!isConnected)
+                    findNavController().navigate(R.id.noConnectFragment)
+            })
+    }
+
+
+    override fun setupViews() {
         setupRecyclerview()
     }
 
     private fun setupRecyclerview() {
         binding.episodeRecView.apply {
-            layoutManager = eLayoutManager
+            layoutManager = LinearLayoutManager(requireContext())
             adapter = episodeAdapter
         }
-
-        binding.episodeRecView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0) {
-                    val firstVisibleItemPosition = eLayoutManager.findFirstVisibleItemPosition()
-                    val visibleItemCount = eLayoutManager.childCount
-                    val totalItemCount = eLayoutManager.itemCount
-                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
-                        viewModel.page++
-                        viewModel.fetchEpisode(viewModel.page)
-                    }
-                }
-            }
-        })
     }
 
     override fun setupRequest() {
+        if (args.name == "" && args.episode == "") {
+            viewModel.fetchEpisodes("", "")
+        } else {
+            viewModel.fetchEpisodesFilter(args.name, args.episode)
+        }
+    }
+
+    override fun setupObserves() {
+        if (isConnected) {
+            if (args.name == "" && args.episode == "") {
+                viewModel.episodeState.observe(viewLifecycleOwner, {
+                    lifecycleScope.launch {
+                        episodeAdapter.submitData(it)
+                    }
+                })
+            } else {
+                viewModel.episodeStateFilter.observe(viewLifecycleOwner, {
+                    lifecycleScope.launch {
+                        episodeAdapter.submitData(it)
+                    }
+                })
+            }
+        }
+    }
+
+    private fun onItemClick(name: String, id: Int) {
+        findNavController().navigate(
+            EpisodeFragmentDirections.actionEpisodeFragmentToEpisodeDetailFragment(
+                label = "${getString(R.string.fragment_detail_episode)}$name",
+                id = id
+            )
+        )
+    }
+
+    override fun setupListener() {
+        searchItem()
         bottomNavigationSelected()
-        fetchEpisode()
-        fetchGetEpisode()
+        filterListener()
+
+    }
+
+    private fun searchItem() {
+        if (args.name == "" || args.episode == "") {
+            binding.searchEpisode.searchItem {
+                viewModel.fetchEpisodes(
+                    it,
+                    ""
+                )
+            }
+        } else {
+            binding.searchEpisode.searchItem {
+                viewModel.fetchEpisodesFilter(
+                    it,
+                    args.episode
+                )
+            }
+        }
     }
 
     private fun bottomNavigationSelected() {
@@ -61,26 +115,9 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_e
         }
     }
 
-    private fun fetchEpisode() {
-        viewModel.fetchEpisode(1)
-    }
-
-    private fun fetchGetEpisode() {
-        viewModel.episodeState.observe(viewLifecycleOwner, {
-            binding.loaderEpisode.isVisible = it is UIState.Loading
-            when (it) {
-                is UIState.Error -> {
-                    Timber.e("tag ${it.error}")
-                }
-                is UIState.Loading -> {
-
-                }
-                is UIState.Success -> {
-                    val list = ArrayList<EpisodeModel>(episodeAdapter.currentList)
-                    list.addAll(it.data)
-                    episodeAdapter.submitList(list)
-                }
-            }
-        })
+    private fun filterListener() {
+        binding.filterFloatButton.setOnClickListener {
+            findNavController().navigate(R.id.action_episodeFragment_to_episodeDialogFragment)
+        }
     }
 }

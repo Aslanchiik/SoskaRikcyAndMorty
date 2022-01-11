@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.fragments.location.detail.LocationDetailFragment">
+
+    <TextView
+        android:id="@+id/location_detail_text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Name:"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/location_name_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@+id/location_detail_text_name"
+        app:layout_constraintTop_toTopOf="@id/location_detail_text_name" />
+
+    <TextView
+        android:id="@+id/location_detail_text_dimension"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Dimension:"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@+id/location_detail_text_name"
+        app:layout_constraintTop_toBottomOf="@+id/location_detail_text_name" />
+
+    <TextView
+        android:id="@+id/location_detail_dimension"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@+id/location_detail_text_dimension"
+        app:layout_constraintTop_toTopOf="@+id/location_detail_text_dimension" />
+
+    <TextView
+        android:id="@+id/location_detail_text_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Type:"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@id/location_detail_text_dimension"
+        app:layout_constraintTop_toBottomOf="@+id/location_detail_text_dimension" />
+
+    <TextView
+        android:id="@+id/location_detail_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="3dp"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@+id/location_detail_text_type"
+        app:layout_constraintTop_toTopOf="@+id/location_detail_text_type" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guid_for_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guid_for_image" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
