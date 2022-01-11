@@ -1,27 +1,41 @@
 package com.example.soskarikcyandmorty.ui.fragments.character
 
-import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.soskarikcyandmorty.R
 import com.example.soskarikcyandmorty.bases.BaseFragment
+import com.example.soskarikcyandmorty.common.exensions.searchItem
 import com.example.soskarikcyandmorty.databinding.FragmentCharacterBinding
-import com.example.soskarikcyandmorty.domain.models.CharacterModel
-import com.example.soskarikcyandmorty.presentation.state.UIState
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.CharacterAdapter
+import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragment_character) {
 
     override val binding by viewBinding(FragmentCharacterBinding::bind)
-    private val viewModel: CharacterViewModel by viewModels()
-    private val characterAdapter: CharacterAdapter = CharacterAdapter()
-    private var mLayoutManager: LinearLayoutManager = LinearLayoutManager(context)
+    private val viewModel: CharacterViewModel by activityViewModels()
+    private val characterAdapter = CharacterAdapter(this::onItemClick, this::onItemLongClick)
+    private var isConnected = true
+    private val args: CharacterFragmentArgs by navArgs()
+
+    override fun initialize() {
+        setupConnection()
+    }
+
+    private fun setupConnection() {
+        NetworkConnectionLiveData(context ?: return)
+            .observe(viewLifecycleOwner, { isConnected ->
+                if (!isConnected)
+                    findNavController().navigate(R.id.action_characterFragment_to_noConnectFragment)
+            })
+    }
 
     override fun setupViews() {
         setupRecyclerView()
@@ -29,30 +43,61 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
 
     private fun setupRecyclerView() {
         binding.characterRecView.apply {
-            layoutManager = mLayoutManager
+            layoutManager = LinearLayoutManager(requireContext())
             adapter = characterAdapter
         }
-
-        binding.characterRecView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0) {
-                    val firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition()
-                    val visibleItemCount = mLayoutManager.childCount
-                    val totalItemCount = mLayoutManager.itemCount
-                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
-                        viewModel.page++
-                        viewModel.fetchCharacter(viewModel.page)
-                    }
-                }
-            }
-        })
     }
 
     override fun setupRequest() {
+        if (args.status == "") {
+            viewModel.fetchCharacters("", "", "")
+        } else {
+            viewModel.fetchCharactersFilter("", args.status, args.gender)
+        }
+    }
+
+    override fun setupObserves() {
+        if (isConnected) {
+            if (args.status == "" || args.gender == "") {
+                viewModel.charactersState.observe(viewLifecycleOwner, {
+                    lifecycleScope.launch {
+                        characterAdapter.submitData(it)
+                    }
+                })
+            } else {
+                viewModel.charactersStateFilter.observe(viewLifecycleOwner, {
+                    lifecycleScope.launch {
+                        characterAdapter.submitData(it)
+                    }
+                })
+            }
+        }
+    }
+
+    override fun setupListener() {
+        searchItems()
         bottomNavigationSelected()
-        fetchCharacter()
-        fetchGetCharacter()
+        filterListener()
+    }
+
+    private fun searchItems() {
+        if (args.status == "" || args.gender == "") {
+            binding.searchCharacter.searchItem {
+                viewModel.fetchCharacters(
+                    it,
+                    "",
+                    ""
+                )
+            }
+        } else {
+            binding.searchCharacter.searchItem {
+                viewModel.fetchCharactersFilter(
+                    it,
+                    args.status,
+                    args.gender
+                )
+            }
+        }
     }
 
     private fun bottomNavigationSelected() {
@@ -61,26 +106,25 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
         }
     }
 
-    private fun fetchCharacter() {
-        viewModel.fetchCharacter(1)
+    private fun filterListener() {
+        binding.filterFloatButton.setOnClickListener {
+            findNavController().navigate(R.id.action_characterFragment_to_characterDialogFragment)
+        }
     }
 
-    private fun fetchGetCharacter() {
-        viewModel.characterState.observe(viewLifecycleOwner, {
-            binding.loaderCharacter.isVisible = it is UIState.Loading
-            when (it) {
-                is UIState.Error -> {
-                    Timber.e("tag ${it.error}")
-                }
-                is UIState.Loading -> {
 
-                }
-                is UIState.Success -> {
-                    val list = ArrayList<CharacterModel>(characterAdapter.currentList)
-                    list.addAll(it.data)
-                    characterAdapter.submitList(list)
-                }
-            }
-        })
+    private fun onItemClick(name: String, id: Int) {
+        findNavController().navigate(
+            CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
+                label = "${getString(R.string.fragment_detail_character)}$name",
+                id = id,
+            )
+        )
+    }
+
+    private fun onItemLongClick(image: String) {
+        findNavController().navigate(
+            CharacterFragmentDirections.actionCharacterFragmentToDialogFragment(image)
+        )
     }
 }
