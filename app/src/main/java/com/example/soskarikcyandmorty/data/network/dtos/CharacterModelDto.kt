@@ -1,5 +1,6 @@
 package com.example.soskarikcyandmorty.data.network.dtos
 
+import com.example.soskarikcyandmorty.domain.models.CharacterLocation
 import com.example.soskarikcyandmorty.domain.models.CharacterModel
 import com.google.gson.annotations.SerializedName
 
@@ -21,7 +22,28 @@ data class CharacterModelDto(
     var species: String,
 
     @SerializedName("location")
-    var location: Any
+    var location: CharacterLocationModelDto,
+
+    @SerializedName("type")
+    var type: String,
+
+    @SerializedName("episode")
+    var episode: ArrayList<String>,
+
+    @SerializedName("gender")
+    var gender: String,
+
+    @SerializedName("created")
+    val created: String
+    )
+
+data class CharacterLocationModelDto(
+
+    @SerializedName("name")
+    val name: String,
+
+    @SerializedName("url")
+    val url: String
 )
 
 fun CharacterModelDto.toCharacter(): CharacterModel {
@@ -31,6 +53,18 @@ fun CharacterModelDto.toCharacter(): CharacterModel {
         image,
         status,
         species,
-        location
+        location.toCharacterLocation(),
+        type,
+        episode,
+        gender,
+        created
     )
 }
+
+fun CharacterLocationModelDto.toCharacterLocation(): CharacterLocation {
+    return CharacterLocation(
+        name,
+        url
+    )
+}
+
