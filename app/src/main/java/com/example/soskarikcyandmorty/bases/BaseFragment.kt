@@ -17,6 +17,7 @@ abstract class BaseFragment<VB : ViewBinding>(@LayoutRes layoutId: Int) :
         setupViews()
         setupListener()
         setupRequest()
+        setupObserves()
 
     }
 
@@ -27,5 +28,7 @@ abstract class BaseFragment<VB : ViewBinding>(@LayoutRes layoutId: Int) :
     protected open fun setupListener() {}
 
     protected open fun setupRequest() {}
+
+    protected open fun setupObserves() {}
 
 }
