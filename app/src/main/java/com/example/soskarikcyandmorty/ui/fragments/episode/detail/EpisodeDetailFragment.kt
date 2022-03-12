@@ -24,7 +24,7 @@ class EpisodeDetailFragment :
 
     override fun setupObserves() {
         with(binding) {
-            viewModel.fetchEpisodeId.observe(viewLifecycleOwner, {
+            viewModel.fetchEpisodeId.observe(viewLifecycleOwner) {
                 when (it) {
                     is UIState.Error -> {
                     }
@@ -36,7 +36,7 @@ class EpisodeDetailFragment :
                         episodeCreated.text = it.data.created
                     }
                 }
-            })
+            }
         }
     }
 }

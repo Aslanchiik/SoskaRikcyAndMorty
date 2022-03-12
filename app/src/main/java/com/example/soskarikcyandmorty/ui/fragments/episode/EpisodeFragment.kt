@@ -31,10 +31,10 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_e
 
     private fun setupConnection() {
         NetworkConnectionLiveData(context ?: return)
-            .observe(viewLifecycleOwner, { isConnected ->
+            .observe(viewLifecycleOwner) { isConnected ->
                 if (!isConnected)
                     findNavController().navigate(R.id.noConnectFragment)
-            })
+            }
     }
 
 
@@ -60,17 +60,17 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_e
     override fun setupObserves() {
         if (isConnected) {
             if (args.name == "" && args.episode == "") {
-                viewModel.episodeState.observe(viewLifecycleOwner, {
+                viewModel.episodeState.observe(viewLifecycleOwner) {
                     lifecycleScope.launch {
                         episodeAdapter.submitData(it)
                     }
-                })
+                }
             } else {
-                viewModel.episodeStateFilter.observe(viewLifecycleOwner, {
+                viewModel.episodeStateFilter.observe(viewLifecycleOwner) {
                     lifecycleScope.launch {
                         episodeAdapter.submitData(it)
                     }
-                })
+                }
             }
         }
     }

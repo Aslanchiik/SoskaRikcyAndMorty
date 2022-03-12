@@ -10,9 +10,11 @@ data class CharacterModel(
     var species: String,
     var location: CharacterLocation,
     var type: String,
-    val episode: ArrayList<String>,
+    val episode: MutableList<String>,
     var gender: String,
-    val created: String
+    val created: String,
+
+    var firstSeenIn: String = ""
 ) : BaseInterfaceCallback
 
 data class CharacterLocation(

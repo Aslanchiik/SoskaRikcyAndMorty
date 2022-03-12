@@ -1,6 +1,7 @@
 package com.example.soskarikcyandmorty.ui.fragments.character
 
-import androidx.fragment.app.activityViewModels
+import android.net.Uri
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -8,20 +9,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.soskarikcyandmorty.R
 import com.example.soskarikcyandmorty.bases.BaseFragment
+import com.example.soskarikcyandmorty.common.Resource
 import com.example.soskarikcyandmorty.common.exensions.searchItem
 import com.example.soskarikcyandmorty.databinding.FragmentCharacterBinding
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.CharacterAdapter
 import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragment_character) {
 
     override val binding by viewBinding(FragmentCharacterBinding::bind)
-    private val viewModel: CharacterViewModel by activityViewModels()
-    private val characterAdapter = CharacterAdapter(this::onItemClick, this::onItemLongClick)
+    private val viewModel: CharacterViewModel by viewModels()
+    private val characterAdapter = CharacterAdapter(
+        this::onItemClick,
+        this::fetchFirstSeenIn,
+        this::onItemLongClick
+    )
     private var isConnected = true
     private val args: CharacterFragmentArgs by navArgs()
 
@@ -31,10 +38,10 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
 
     private fun setupConnection() {
         NetworkConnectionLiveData(context ?: return)
-            .observe(viewLifecycleOwner, { isConnected ->
+            .observe(viewLifecycleOwner) { isConnected ->
                 if (!isConnected)
                     findNavController().navigate(R.id.action_characterFragment_to_noConnectFragment)
-            })
+            }
     }
 
     override fun setupViews() {
@@ -59,17 +66,17 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
     override fun setupObserves() {
         if (isConnected) {
             if (args.status == "" || args.gender == "") {
-                viewModel.charactersState.observe(viewLifecycleOwner, {
+                viewModel.charactersState.observe(viewLifecycleOwner) {
                     lifecycleScope.launch {
                         characterAdapter.submitData(it)
                     }
-                })
+                }
             } else {
-                viewModel.charactersStateFilter.observe(viewLifecycleOwner, {
+                viewModel.charactersStateFilter.observe(viewLifecycleOwner) {
                     lifecycleScope.launch {
                         characterAdapter.submitData(it)
                     }
-                })
+                }
             }
         }
     }
@@ -112,6 +119,23 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
         }
     }
 
+    private fun fetchFirstSeenIn(position: Int, episodeUrl: String) {
+        lifecycleScope.launch {
+            viewModel.fetchEpisode(episodeUrl.getIdFromUrl()).collect { it ->
+                when (it) {
+                    is Resource.Error -> {}
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        it.data.let {
+                            it?.let { it1 -> characterAdapter.setFirstSeenIn(position, it1.name) }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun String.getIdFromUrl() = Uri.parse(this).lastPathSegment?.toInt()!!
 
     private fun onItemClick(name: String, id: Int) {
         findNavController().navigate(

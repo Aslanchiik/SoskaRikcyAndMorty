@@ -85,9 +85,11 @@
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="id"
+            android:defaultValue="1"
             app:argType="integer" />
         <argument
             android:name="label"
+            android:defaultValue="Rick"
             app:argType="string" />
     </fragment>
 

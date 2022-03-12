@@ -2,6 +2,7 @@ package com.example.soskarikcyandmorty.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soskarikcyandmorty.R
@@ -14,6 +15,7 @@ import com.example.soskarikcyandmorty.domain.models.CharacterModel
 
 class CharacterAdapter(
     val onItemClick: (name: String, id: Int) -> Unit,
+    val fetchFirstSeenIn: (position: Int, episodeUrl: String) -> Unit,
     val onLongClick: (image: String) -> Unit
 ) : PagingDataAdapter<CharacterModel, CharacterAdapter.ViewHolder>(BaseDiffUtilItemCallback()) {
 
@@ -24,7 +26,12 @@ class CharacterAdapter(
     }
 
     override fun onBindViewHolder(holder: CharacterAdapter.ViewHolder, position: Int) {
-        getItem(position).let { holder.onBind(it) }
+        getItem(position).let { it?.let { it1 -> holder.onBind(it1) } }
+    }
+
+    fun setFirstSeenIn(position: Int, firstSeenIn: String) {
+        getItem(position)?.firstSeenIn = firstSeenIn
+        notifyItemChanged(position, null)
     }
 
     inner class ViewHolder(private val binding: ItemCharacterBinding) :
@@ -44,14 +51,12 @@ class CharacterAdapter(
             }
         }
 
-        fun onBind(it: CharacterModel?) = with(binding) {
-            if (it != null) {
-                itemCharacterImage.loadImagesWithGlide(it.image, loaderItemCharacter)
-            }
-            itemCharacterText.text = it?.name
-            itemCharacterSpecies.text = it?.species
-            itemCharacterStatus.text = it?.status
-            when (it?.status) {
+        fun onBind(it: CharacterModel) = with(binding) {
+            itemCharacterImage.loadImagesWithGlide(it.image, loaderItemCharacter)
+            itemCharacterText.text = it.name
+            itemCharacterSpecies.text = it.species
+            itemCharacterStatus.text = it.status
+            when (it.status) {
                 "Alive"
                 -> itemSmallRectangle.setBackgroundResource(R.drawable.draw_alive)
                 "Dead"
@@ -59,7 +64,17 @@ class CharacterAdapter(
                 "unknown"
                 -> itemSmallRectangle.setBackgroundResource(R.drawable.draw_unknown)
             }
-            itemLastLocation.text = it?.location?.name
+            itemLastLocation.text = it.location.name
+            setupFirstSeenIn(it.firstSeenIn, it.episode.first())
+        }
+
+        private fun setupFirstSeenIn(firstSeenIn: String, episode: String) = with(binding) {
+            itemFirstSeenIn.isVisible = firstSeenIn.isNotEmpty()
+            if (firstSeenIn.isEmpty()) {
+                fetchFirstSeenIn(absoluteAdapterPosition, episode)
+            } else {
+                itemFirstSeenIn.text = firstSeenIn
+            }
         }
     }
 }

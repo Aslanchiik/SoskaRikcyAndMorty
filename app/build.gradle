@@ -60,9 +60,6 @@ dependencies {
     // hilt navigation
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
 
-    // hilt for viewmodel kotlin
-    kapt "androidx.hilt:hilt-compiler:1.0.0"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
 
     // OkHttp
     implementation "com.squareup.okhttp3:okhttp-bom:4.9.0"
@@ -79,7 +76,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
 
     // Navigation
-    def nav_version = "2.3.5"
+    def nav_version = "2.4.1"
 
     //   implementation
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
