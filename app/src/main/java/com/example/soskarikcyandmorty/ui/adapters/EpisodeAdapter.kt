@@ -42,6 +42,5 @@ class EpisodeAdapter(
             mainTitle.text = it.name
             descriptionText.text = it.episode
         }
-
     }
 }
