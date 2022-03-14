@@ -5,6 +5,5 @@ import com.example.soskarikcyandmorty.domain.models.CharacterModel
 import kotlinx.coroutines.flow.Flow
 
 interface CharacterRepository {
-
     fun fetchCharacterID(id: Int): Flow<Resource<CharacterModel>>
 }

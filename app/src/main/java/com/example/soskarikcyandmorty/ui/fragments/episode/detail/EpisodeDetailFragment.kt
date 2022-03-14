@@ -24,7 +24,7 @@ class EpisodeDetailFragment :
 
     override fun setupObserves() {
         with(binding) {
-            viewModel.fetchEpisodeId.observe(viewLifecycleOwner) {
+            viewModel.fetchEpisodeId.subscribe {
                 when (it) {
                     is UIState.Error -> {
                     }

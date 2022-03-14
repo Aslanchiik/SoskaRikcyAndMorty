@@ -1,5 +1,6 @@
 package com.example.soskarikcyandmorty.ui.fragments.character.dialog
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
@@ -18,6 +19,7 @@ class CharacterDialogFragment : DialogFragment() {
 
     lateinit var binding: FragmentCharacterDialogBinding
 
+    @SuppressLint("UseGetLayoutInflater")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = FragmentCharacterDialogBinding.inflate(LayoutInflater.from(context))
         val dialog = AlertDialog.Builder(activity).setView(binding.root).create()
@@ -44,8 +46,11 @@ class CharacterDialogFragment : DialogFragment() {
             val name = binding.nameFilter.text.toString()
             val gender = binding.genderFilter.text.toString()
             findNavController().navigate(
-                CharacterDialogFragmentDirections.actionCharacterDialogFragmentToCharacterFragment(name,gender))
+                CharacterDialogFragmentDirections.actionCharacterDialogFragmentToCharacterFragment(
+                    name,
+                    gender
+                )
+            )
         }
-
     }
 }

@@ -2,8 +2,8 @@ package com.example.soskarikcyandmorty.ui.fragments.filter
 
 import android.annotation.SuppressLint
 import android.util.Log
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.soskarikcyandmorty.R
@@ -17,6 +17,7 @@ import com.example.soskarikcyandmorty.domain.models.toLocationModel
 import com.example.soskarikcyandmorty.presentation.state.UIState
 import com.example.soskarikcyandmorty.ui.adapters.FilterAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class FilterFragment : BaseFragment<FragmentFilterBinding>(R.layout.fragment_filter) {
@@ -53,72 +54,77 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(R.layout.fragment_fil
 
     @SuppressLint("NotifyDataSetChanged")
     private fun charactersObserves() {
-        viewModel.fetchCharacterFilter.observe(viewLifecycleOwner, { it ->
-            when (it) {
-                is UIState.Error -> {
-                    Log.e("tag", "error")
-                }
-                is UIState.Loading -> {
-                    Log.e("tag", "Loading")
-                }
-                is UIState.Success -> it.data.map {
-                    it.toCharacterModel()
-                }.let {
-                    val sortedList = it.sortedByDescending { list ->
-                        list.charactersModel.created
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.fetchCharacterFilter.collect { it ->
+                when (it) {
+                    is UIState.Error -> {
+                        Log.e("tag", "error")
                     }
-                    list.addAll(sortedList)
+                    is UIState.Loading -> {
+                        Log.e("tag", "Loading")
+                    }
+                    is UIState.Success -> it.data.map {
+                        it.toCharacterModel()
+                    }.let {
+                        val sortedList = it.sortedByDescending { list ->
+                            list.charactersModel.created
+                        }
+                        list.addAll(sortedList)
+                    }
                 }
+                filterAdapter.notifyDataSetChanged()
             }
-            filterAdapter.notifyDataSetChanged()
-        })
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun locationObserves() {
-        viewModel.fetchLocationFilter.observe(viewLifecycleOwner, { it ->
-            binding.filterLoader.isVisible = it is UIState.Loading
-            when (it) {
-                is UIState.Error -> {
-                    Log.e("tag", it.error)
-                }
-                is UIState.Loading -> {
-                    Log.e("tag", "loading")
-                }
-                is UIState.Success -> it.data.map {
-                    it.toLocationModel()
-                }.let {
-                    val sortedList = it.sortedByDescending { list ->
-                        list.locationModel.created
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.fetchLocationFilter.collect { it ->
+                when (it) {
+                    is UIState.Error -> {
+                        Log.e("tag", it.error)
                     }
-                    list.addAll(sortedList)
+                    is UIState.Loading -> {
+                        Log.e("tag", "loading")
+                    }
+                    is UIState.Success -> it.data.map {
+                        it.toLocationModel()
+                    }.let {
+                        val sortedList = it.sortedByDescending { list ->
+                            list.locationModel.created
+                        }
+                        list.addAll(sortedList)
+                    }
                 }
+                filterAdapter.notifyDataSetChanged()
             }
-            filterAdapter.notifyDataSetChanged()
-        })
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun episodeObserves() {
-        viewModel.fetchEpisodeFilter.observe(viewLifecycleOwner, { it ->
-            when (it) {
-                is UIState.Error -> {
-                    Log.e("tag", it.error)
-                }
-                is UIState.Loading -> {
-                    Log.e("tag", "loading")
-                }
-                is UIState.Success -> it.data.map {
-                    it.toEpisodeModel()
-                }.let {
-                    val sortedList = it.sortedByDescending { list ->
-                        list.episodeModel.created
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.fetchEpisodeFilter.collect { it ->
+                when (it) {
+                    is UIState.Error -> {
+                        Log.e("tag", it.error)
                     }
-                    list.addAll(sortedList)
+                    is UIState.Loading -> {
+                        Log.e("tag", "loading")
+                    }
+                    is UIState.Success -> it.data.map {
+                        it.toEpisodeModel()
+                    }.let {
+                        val sortedList = it.sortedByDescending { list ->
+                            list.episodeModel.created
+                        }
+                        list.addAll(sortedList)
+                    }
                 }
+                filterAdapter.notifyDataSetChanged()
             }
-            filterAdapter.notifyDataSetChanged()
-        })
+        }
     }
 
     override fun setupListener() {

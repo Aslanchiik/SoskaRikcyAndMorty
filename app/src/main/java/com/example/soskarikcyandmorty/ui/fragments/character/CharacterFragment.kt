@@ -17,7 +17,6 @@ import com.example.soskarikcyandmorty.ui.adapters.CharacterAdapter
 import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragment_character) {
@@ -66,16 +65,12 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
     override fun setupObserves() {
         if (isConnected) {
             if (args.status == "" || args.gender == "") {
-                viewModel.charactersState.observe(viewLifecycleOwner) {
-                    lifecycleScope.launch {
-                        characterAdapter.submitData(it)
-                    }
+                viewModel.charactersState.subscribePaging {
+                    characterAdapter.submitData(it)
                 }
             } else {
-                viewModel.charactersStateFilter.observe(viewLifecycleOwner) {
-                    lifecycleScope.launch {
-                        characterAdapter.submitData(it)
-                    }
+                viewModel.charactersStateFilter.subscribePaging {
+                    characterAdapter.submitData(it)
                 }
             }
         }
@@ -120,15 +115,13 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
     }
 
     private fun fetchFirstSeenIn(position: Int, episodeUrl: String) {
-        lifecycleScope.launch {
-            viewModel.fetchEpisode(episodeUrl.getIdFromUrl()).collect { it ->
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.fetchEpisode(episodeUrl.getIdFromUrl()).collect {
                 when (it) {
                     is Resource.Error -> {}
                     is Resource.Loading -> {}
                     is Resource.Success -> {
-                        it.data.let {
-                            it?.let { it1 -> characterAdapter.setFirstSeenIn(position, it1.name) }
-                        }
+                        it.data?.let { it1 -> characterAdapter.setFirstSeenIn(position, it1.name) }
                     }
                 }
             }

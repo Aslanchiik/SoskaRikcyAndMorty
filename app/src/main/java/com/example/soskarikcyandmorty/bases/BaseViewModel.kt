@@ -1,18 +1,18 @@
 package com.example.soskarikcyandmorty.bases
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.soskarikcyandmorty.common.Resource
 import com.example.soskarikcyandmorty.presentation.state.UIState
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected  fun <T> subscribeTo(
-        state: MutableLiveData<UIState<T>>,
+    protected fun <T> subscribeTo(
+        state: MutableStateFlow<UIState<T>>,
         request: () -> Flow<Resource<T>>
     ) {
         viewModelScope.launch {

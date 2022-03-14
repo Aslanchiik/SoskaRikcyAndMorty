@@ -24,13 +24,14 @@ class CharacterDetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fra
 
     override fun setupObserves() {
         with(binding) {
-            viewModel.fetchCharacterDetailId.observe(viewLifecycleOwner) {
+            viewModel.fetchCharacterDetailId.subscribe {
                 when (it) {
                     is UIState.Error -> {
                         Log.e("tag", "error")
+
                     }
                     is UIState.Loading -> {
-                        Log.e("tag", "error")
+                        Log.e("tag", "loading")
                     }
                     is UIState.Success -> {
                         detailImage.loadImagesWithGlide(it.data.image, loaderImage)

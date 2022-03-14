@@ -5,6 +5,5 @@ import com.example.soskarikcyandmorty.domain.models.EpisodeModel
 import kotlinx.coroutines.flow.Flow
 
 interface EpisodeRepository {
-
     fun fetchEpisodeId(id: Int): Flow<Resource<EpisodeModel>>
 }

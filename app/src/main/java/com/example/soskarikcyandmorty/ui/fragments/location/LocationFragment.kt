@@ -1,7 +1,6 @@
 package com.example.soskarikcyandmorty.ui.fragments.location
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +13,6 @@ import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.LocationAdapter
 import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location) {
@@ -31,10 +29,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
     private fun setupConnection() {
         NetworkConnectionLiveData(context ?: return)
-            .observe(viewLifecycleOwner, { isConnected ->
+            .observe(viewLifecycleOwner) { isConnected ->
                 if (!isConnected)
                     findNavController().navigate(R.id.noConnectFragment)
-            })
+            }
     }
 
     override fun setupViews() {
@@ -59,17 +57,13 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     override fun setupObserves() {
         if (isConnect) {
             if (args.type == "" && args.dimension == "") {
-                viewModel.locationState.observe(viewLifecycleOwner, {
-                    lifecycleScope.launch {
-                        locationAdapter.submitData(it)
-                    }
-                })
+                viewModel.locationState.subscribePaging {
+                    locationAdapter.submitData(it)
+                }
             } else {
-                viewModel.locationStateFilter.observe(viewLifecycleOwner, {
-                    lifecycleScope.launch {
-                        locationAdapter.submitData(it)
-                    }
-                })
+                viewModel.locationStateFilter.subscribePaging {
+                    locationAdapter.submitData(it)
+                }
             }
         }
     }

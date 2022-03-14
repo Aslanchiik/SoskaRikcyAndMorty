@@ -1,7 +1,6 @@
 package com.example.soskarikcyandmorty.ui.fragments.episode
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +13,6 @@ import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.EpisodeAdapter
 import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_episode) {
@@ -60,16 +58,12 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_e
     override fun setupObserves() {
         if (isConnected) {
             if (args.name == "" && args.episode == "") {
-                viewModel.episodeState.observe(viewLifecycleOwner) {
-                    lifecycleScope.launch {
-                        episodeAdapter.submitData(it)
-                    }
+                viewModel.episodeState.subscribePaging {
+                    episodeAdapter.submitData(it)
                 }
             } else {
-                viewModel.episodeStateFilter.observe(viewLifecycleOwner) {
-                    lifecycleScope.launch {
-                        episodeAdapter.submitData(it)
-                    }
+                viewModel.episodeStateFilter.subscribePaging {
+                    episodeAdapter.submitData(it)
                 }
             }
         }
