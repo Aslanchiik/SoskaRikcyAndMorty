@@ -26,8 +26,8 @@ class NoConnectFragment : BaseFragment<FragmentNoConnectBinding>(R.layout.fragme
 
     override fun setupObserves() {
         NetworkConnectionLiveData(context ?: return)
-            .observe(viewLifecycleOwner, { isConnected ->
+            .observe(viewLifecycleOwner) { isConnected ->
                 if (isConnected) isCheckInternet = isConnected
-            })
+            }
     }
 }
