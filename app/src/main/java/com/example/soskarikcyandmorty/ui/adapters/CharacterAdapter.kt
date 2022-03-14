@@ -49,6 +49,14 @@ class CharacterAdapter(
                 }
                 false
             }
+
+            binding.itemLastLocation.setOnClickListener {
+                getItem(absoluteAdapterPosition)
+            }
+
+            binding.itemFirstSeenIn.setOnClickListener {
+                getItem(absoluteAdapterPosition)
+            }
         }
 
         fun onBind(it: CharacterModel) = with(binding) {
