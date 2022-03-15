@@ -2,7 +2,6 @@ package com.example.soskarikcyandmorty.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soskarikcyandmorty.R
@@ -10,6 +9,7 @@ import com.example.soskarikcyandmorty.bases.BaseDiffUtilItemCallback
 import com.example.soskarikcyandmorty.common.exensions.loadImagesWithGlide
 import com.example.soskarikcyandmorty.common.exensions.setOnSingleClickListener
 import com.example.soskarikcyandmorty.common.exensions.setOnSingleLongClickListener
+import com.example.soskarikcyandmorty.constants.Constants.PAYLOAD_TITLE
 import com.example.soskarikcyandmorty.databinding.ItemCharacterBinding
 import com.example.soskarikcyandmorty.domain.models.CharacterModel
 
@@ -31,7 +31,22 @@ class CharacterAdapter(
 
     fun setFirstSeenIn(position: Int, firstSeenIn: String) {
         getItem(position)?.firstSeenIn = firstSeenIn
-        notifyItemChanged(position, null)
+        notifyItemChanged(position, PAYLOAD_TITLE)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads)
+        } else {
+            for (payload in payloads) {
+                if (payload == PAYLOAD_TITLE) {
+                    holder.setupFirstSeenIn(
+                        getItem(position)?.firstSeenIn.toString(),
+                        getItem(position)?.episode?.first().toString()
+                    )
+                }
+            }
+        }
     }
 
     inner class ViewHolder(private val binding: ItemCharacterBinding) :
@@ -76,8 +91,7 @@ class CharacterAdapter(
             setupFirstSeenIn(it.firstSeenIn, it.episode.first())
         }
 
-        private fun setupFirstSeenIn(firstSeenIn: String, episode: String) = with(binding) {
-            itemFirstSeenIn.isVisible = firstSeenIn.isNotEmpty()
+        fun setupFirstSeenIn(firstSeenIn: String, episode: String) = with(binding) {
             if (firstSeenIn.isEmpty()) {
                 fetchFirstSeenIn(absoluteAdapterPosition, episode)
             } else {

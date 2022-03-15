@@ -14,4 +14,7 @@ object Constants {
     //location
     const val LOCATION_AND_POINT = "api/location"
     const val LOCATION_ID = "api/location/{id}"
+
+    // payload
+    const val PAYLOAD_TITLE = "payloadTitle"
 }
