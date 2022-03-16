@@ -21,7 +21,7 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_e
     private val episodeAdapter: EpisodeAdapter = EpisodeAdapter(this::onItemClick)
     private val viewModel: EpisodeViewModel by viewModels()
     private var isConnected = true
-    private val args: EpisodeFragmentArgs by navArgs()
+    private val args by navArgs<EpisodeFragmentArgs>()
 
     override fun initialize() {
         setupConnection()
