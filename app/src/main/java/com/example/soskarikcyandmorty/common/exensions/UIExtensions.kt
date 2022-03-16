@@ -38,3 +38,8 @@ fun ImageView.loadImagesWithGlide(url: String, loader: ProgressBar) {
         })
         .into(this)
 }
+
+fun ImageView.setImage(url: String) =
+    Glide.with(this)
+        .load(url)
+        .into(this)
