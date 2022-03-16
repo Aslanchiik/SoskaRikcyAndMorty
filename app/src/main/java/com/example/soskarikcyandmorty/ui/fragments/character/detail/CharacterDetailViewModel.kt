@@ -1,4 +1,4 @@
-package com.example.soskarikcyandmorty.ui.fragments.character.deatil
+package com.example.soskarikcyandmorty.ui.fragments.character.detail
 
 import com.example.soskarikcyandmorty.bases.BaseViewModel
 import com.example.soskarikcyandmorty.domain.models.CharacterModel
