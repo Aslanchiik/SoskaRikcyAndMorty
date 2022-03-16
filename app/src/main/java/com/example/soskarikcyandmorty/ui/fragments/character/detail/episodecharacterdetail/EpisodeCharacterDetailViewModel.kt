@@ -21,9 +21,11 @@ class EpisodeCharacterDetailViewModel @Inject constructor(
     private val _episodeCharacterDetailState = MutableStateFlow<PagingData<EpisodeModel>>(PagingData.empty())
     val episodeCharacterDetailState: StateFlow<PagingData<EpisodeModel>> = _episodeCharacterDetailState
 
-    fun fetchEpisodes(name: String?, episode: String?) = viewModelScope.launch {
-        episodeRepositoryImpl.fetchEpisode(name, episode).cachedIn(viewModelScope).collect {
-            _episodeCharacterDetailState.value = it
+    fun fetchEpisodes(name: String?, episode: String?) {
+        viewModelScope.launch {
+            episodeRepositoryImpl.fetchEpisode(name, episode).cachedIn(viewModelScope).collect {
+                _episodeCharacterDetailState.value = it
+            }
         }
     }
 }
