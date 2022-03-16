@@ -15,7 +15,7 @@ class EpisodeDetailFragment :
 
     override val binding by viewBinding(FragmentEpisodeDetailBinding::bind)
     private val viewModel: EpisodeDetailViewModel by viewModels()
-    private val args: EpisodeDetailFragmentArgs by navArgs()
+    private val args by navArgs<EpisodeDetailFragmentArgs>()
 
     override fun initialize() {
         viewModel.fetchCharacterId(args.id)

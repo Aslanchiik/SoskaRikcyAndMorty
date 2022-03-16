@@ -16,7 +16,7 @@ class LocationDetailFragment :
 
     override val binding by viewBinding(FragmentLocationDetailBinding::bind)
     private val viewModel: LocationDetailViewModel by viewModels()
-    private val args: LocationDetailFragmentArgs by navArgs()
+    private val args by navArgs<LocationDetailFragmentArgs>()
 
     override fun initialize() {
         viewModel.fetchCharacterId(args.id)

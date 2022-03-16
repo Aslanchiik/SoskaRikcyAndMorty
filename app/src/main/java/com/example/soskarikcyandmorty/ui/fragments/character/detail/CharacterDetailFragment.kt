@@ -17,7 +17,7 @@ class CharacterDetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fra
 
     override val binding by viewBinding(FragmentDetailBinding::bind)
     private val viewModel: CharacterDetailViewModel by viewModels()
-    private val args: CharacterDetailFragmentArgs by navArgs()
+    private val args by navArgs<CharacterDetailFragmentArgs>()
 
     override fun initialize() {
         viewModel.fetchCharacterId(args.id)

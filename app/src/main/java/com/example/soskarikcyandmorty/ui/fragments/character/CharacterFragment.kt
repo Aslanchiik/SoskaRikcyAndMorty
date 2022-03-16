@@ -29,7 +29,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
         this::onItemLongClick
     )
     private var isConnected = true
-    private val args: CharacterFragmentArgs by navArgs()
+    private val args by navArgs<CharacterFragmentArgs>()
 
     override fun initialize() {
         setupConnection()

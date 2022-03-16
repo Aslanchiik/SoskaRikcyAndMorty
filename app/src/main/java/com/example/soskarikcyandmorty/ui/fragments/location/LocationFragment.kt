@@ -21,7 +21,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     private val viewModel: LocationViewModel by viewModels()
     private val locationAdapter: LocationAdapter = LocationAdapter(this::onItemClick)
     private val isConnect = true
-    private val args: LocationFragmentArgs by navArgs()
+    private val args by navArgs<LocationFragmentArgs>()
 
     override fun initialize() {
         setupConnection()
