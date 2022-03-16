@@ -80,7 +80,7 @@
 
     <fragment
         android:id="@+id/characterDetailFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.character.deatil.CharacterDetailFragment"
+        android:name="com.example.soskarikcyandmorty.ui.fragments.character.detail.CharacterDetailFragment"
         android:label="{label}"
         tools:layout="@layout/fragment_detail">
         <argument
