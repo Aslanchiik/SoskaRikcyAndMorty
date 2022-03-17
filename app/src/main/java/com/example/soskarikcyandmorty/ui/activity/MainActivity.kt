@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.soskarikcyandmorty.R
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var bottomNavigationListener: OnBottomNavigationSelected
+    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        val appBarConfiguration = AppBarConfiguration(
+        appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.characterFragment,
                 R.id.episodeFragment,
@@ -108,5 +110,10 @@ class MainActivity : AppCompatActivity() {
     private fun whetherToShow(position: Boolean, position1: Boolean) {
         binding.bottomNavigation.isVisible = position
         binding.insideToolbar.isVisible = position1
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return (NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp())
     }
 }
