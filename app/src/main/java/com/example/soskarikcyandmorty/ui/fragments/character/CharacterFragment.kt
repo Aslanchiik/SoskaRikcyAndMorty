@@ -1,6 +1,8 @@
 package com.example.soskarikcyandmorty.ui.fragments.character
 
 import android.net.Uri
+import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -66,6 +68,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
         if (isConnected) {
             if (args.status == "" || args.gender == "") {
                 viewModel.charactersState.subscribePaging {
+                    binding.characterProgressBar.isVisible = false
                     characterAdapter.submitData(it)
                 }
             } else {
