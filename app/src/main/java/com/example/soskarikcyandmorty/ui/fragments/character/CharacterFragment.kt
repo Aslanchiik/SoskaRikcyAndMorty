@@ -1,7 +1,6 @@
 package com.example.soskarikcyandmorty.ui.fragments.character
 
 import android.net.Uri
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
