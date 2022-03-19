@@ -3,7 +3,6 @@ package com.example.soskarikcyandmorty.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soskarikcyandmorty.R
 import com.example.soskarikcyandmorty.bases.BaseDiffUtilItemCallback
