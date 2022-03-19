@@ -3,21 +3,25 @@
 
     <item
         android:id="@+id/characterFragment"
+        android:enabled="true"
         android:icon="@drawable/ic_rick"
         android:title="Characters" />
 
     <item
         android:id="@+id/locationFragment"
+        android:enabled="true"
         android:icon="@drawable/ic__971129"
         android:title="Locations" />
 
     <item
         android:id="@+id/episodeFragment"
+        android:enabled="true"
         android:icon="@drawable/ic__96566"
         android:title="Episodes" />
 
     <item
         android:id="@+id/filterFragment"
+        android:enabled="true"
         android:icon="@drawable/filter"
         android:title="Filter" />
 
