@@ -4,6 +4,11 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.core.view.isVisible
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -43,3 +48,15 @@ fun ImageView.setImage(url: String) =
     Glide.with(this)
         .load(url)
         .into(this)
+
+fun <T : Any, VH : RecyclerView.ViewHolder> PagingDataAdapter<T, VH>.bindUIToLoadState(
+    recyclerView: RecyclerView,
+    progressBar: ProgressBar,
+    listener: (CombinedLoadStates) -> Unit
+) {
+    addLoadStateListener { loadStates ->
+        recyclerView.isVisible = loadStates.refresh is LoadState.NotLoading
+        progressBar.isVisible = loadStates.refresh is LoadState.Loading
+        listener(loadStates)
+    }
+}
