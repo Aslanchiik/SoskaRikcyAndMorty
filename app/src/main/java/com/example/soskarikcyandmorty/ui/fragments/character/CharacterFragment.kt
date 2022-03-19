@@ -11,6 +11,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.soskarikcyandmorty.R
 import com.example.soskarikcyandmorty.bases.BaseFragment
 import com.example.soskarikcyandmorty.common.Resource
+import com.example.soskarikcyandmorty.common.exensions.navigateSafely
 import com.example.soskarikcyandmorty.common.exensions.searchItem
 import com.example.soskarikcyandmorty.databinding.FragmentCharacterBinding
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
@@ -56,8 +57,10 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
     }
 
     override fun setupRequest() {
-        if (args.status == "") {
-            viewModel.fetchCharacters("", "", "")
+        if (args.status == "" || args.gender == "") {
+            if (viewModel.charactersState.value == null) {
+                viewModel.fetchCharacters("", "", "")
+            }
         } else {
             viewModel.fetchCharactersFilter("", args.status, args.gender)
         }
@@ -70,10 +73,10 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
                     binding.characterProgressBar.isVisible = false
                     characterAdapter.submitData(it)
                 }
-            } else {
-                viewModel.charactersStateFilter.subscribePaging {
-                    characterAdapter.submitData(it)
-                }
+            }
+        } else {
+            viewModel.charactersStateFilter.subscribePaging {
+                characterAdapter.submitData(it)
             }
         }
     }
@@ -87,11 +90,13 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
     private fun searchItems() {
         if (args.status == "" || args.gender == "") {
             binding.searchCharacter.searchItem {
-                viewModel.fetchCharacters(
-                    it,
-                    "",
-                    ""
-                )
+                if (viewModel.charactersState.value == null) {
+                    viewModel.fetchCharacters(
+                        it,
+                        "",
+                        ""
+                    )
+                }
             }
         } else {
             binding.searchCharacter.searchItem {
@@ -133,7 +138,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
     private fun String.getIdFromUrl() = Uri.parse(this).lastPathSegment?.toInt()!!
 
     private fun onItemClick(name: String, id: Int) {
-        findNavController().navigate(
+        findNavController().navigateSafely(
             CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
                 label = "${getString(R.string.fragment_detail_character)}$name",
                 id = id,
