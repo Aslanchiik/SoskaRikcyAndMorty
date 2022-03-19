@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.soskarikcyandmorty.R
 import com.example.soskarikcyandmorty.bases.BaseFragment
-import com.example.soskarikcyandmorty.common.exensions.searchItem
+import com.example.soskarikcyandmorty.common.exensions.bindUIToLoadState
 import com.example.soskarikcyandmorty.databinding.FragmentLocationBinding
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.LocationAdapter
@@ -39,11 +39,15 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         setupRecyclerView()
     }
 
-    private fun setupRecyclerView() {
-        binding.locationRecView.apply {
+    private fun setupRecyclerView() = with(binding) {
+        locationRecView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = locationAdapter
         }
+        locationAdapter.bindUIToLoadState(
+            locationRecView,
+            locationProgressBar
+        ) {}
     }
 
     override fun setupRequest() {
@@ -84,23 +88,23 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     private fun searchItem() {
-        if (args.type == "" && args.dimension == "") {
-            binding.searchLocation.searchItem {
-                viewModel.fetchLocations(
-                    it,
-                    "",
-                    ""
-                )
-            }
-        } else {
-            binding.searchLocation.searchItem {
-                viewModel.fetchLocationsFilter(
-                    it,
-                    args.type,
-                    args.dimension
-                )
-            }
-        }
+//        if (args.type == "" && args.dimension == "") {
+//            binding.searchLocation.searchItem {
+//                viewModel.fetchLocations(
+//                    it,
+//                    "",
+//                    ""
+//                )
+//            }
+//        } else {
+//            binding.searchLocation.searchItem {
+//                viewModel.fetchLocationsFilter(
+//                    it,
+//                    args.type,
+//                    args.dimension
+//                )
+//            }
+//        }
     }
 
     private fun bottomNavigationSelected() {
@@ -110,8 +114,8 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     private fun filterListener() {
-        binding.filterFloatButton.setOnClickListener {
-            findNavController().navigate(R.id.action_locationFragment_to_locationDialogFragment)
-        }
+//        binding.filterFloatButton.setOnClickListener {
+//            findNavController().navigate(R.id.action_locationFragment_to_locationDialogFragment)
+//        }
     }
 }

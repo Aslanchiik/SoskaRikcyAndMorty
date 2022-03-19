@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.soskarikcyandmorty.R
 import com.example.soskarikcyandmorty.bases.BaseFragment
-import com.example.soskarikcyandmorty.common.exensions.searchItem
+import com.example.soskarikcyandmorty.common.exensions.bindUIToLoadState
 import com.example.soskarikcyandmorty.databinding.FragmentEpisodeBinding
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.EpisodeAdapter
@@ -40,11 +40,14 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_e
         setupRecyclerview()
     }
 
-    private fun setupRecyclerview() {
-        binding.episodeRecView.apply {
+    private fun setupRecyclerview() = with(binding) {
+        episodeRecView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = episodeAdapter
         }
+        episodeAdapter.bindUIToLoadState(
+            episodeRecView, episodeProgressBar
+        ) {}
     }
 
     override fun setupRequest() {
@@ -86,21 +89,21 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_e
     }
 
     private fun searchItem() {
-        if (args.name == "" || args.episode == "") {
-            binding.searchEpisode.searchItem {
-                viewModel.fetchEpisodes(
-                    it,
-                    ""
-                )
-            }
-        } else {
-            binding.searchEpisode.searchItem {
-                viewModel.fetchEpisodesFilter(
-                    it,
-                    args.episode
-                )
-            }
-        }
+//        if (args.name == "" || args.episode == "") {
+//            binding.searchEpisode.searchItem {
+//                viewModel.fetchEpisodes(
+//                    it,
+//                    ""
+//                )
+//            }
+//        } else {
+//            binding.searchEpisode.searchItem {
+//                viewModel.fetchEpisodesFilter(
+//                    it,
+//                    args.episode
+//                )
+//            }
+//        }
     }
 
     private fun bottomNavigationSelected() {
@@ -110,8 +113,8 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_e
     }
 
     private fun filterListener() {
-        binding.filterFloatButton.setOnClickListener {
-            findNavController().navigate(R.id.action_episodeFragment_to_episodeDialogFragment)
-        }
+//        binding.filterFloatButton.setOnClickListener {
+//            findNavController().navigate(R.id.action_episodeFragment_to_episodeDialogFragment)
+//        }
     }
 }
