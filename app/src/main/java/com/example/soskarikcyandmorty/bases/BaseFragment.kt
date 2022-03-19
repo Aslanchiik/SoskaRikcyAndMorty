@@ -51,14 +51,14 @@ abstract class BaseFragment<VB : ViewBinding>(@LayoutRes layoutId: Int) :
         }
     }
 
-    protected open fun <T : Any> StateFlow<PagingData<T>>.subscribePaging(
+    protected open fun <T : Any> StateFlow<PagingData<T>?>.subscribePaging(
         state: Lifecycle.State = Lifecycle.State.STARTED,
         action: suspend (PagingData<T>) -> Unit,
     ) {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewLifecycleOwner.repeatOnLifecycle(state) {
                 this@subscribePaging.collect {
-                    action(it)
+                    it?.let { action(it) }
                 }
             }
         }
