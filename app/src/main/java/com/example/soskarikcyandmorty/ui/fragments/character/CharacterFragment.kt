@@ -12,7 +12,6 @@ import com.example.soskarikcyandmorty.bases.BaseFragment
 import com.example.soskarikcyandmorty.common.Resource
 import com.example.soskarikcyandmorty.common.exensions.bindUIToLoadState
 import com.example.soskarikcyandmorty.common.exensions.navigateSafely
-import com.example.soskarikcyandmorty.common.exensions.searchItem
 import com.example.soskarikcyandmorty.databinding.FragmentCharacterBinding
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.CharacterAdapter
@@ -49,14 +48,14 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
         setupRecyclerView()
     }
 
-    private fun setupRecyclerView() {
-        binding.characterRecView.apply {
+    private fun setupRecyclerView() = with(binding) {
+        characterRecView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = characterAdapter
         }
         characterAdapter.bindUIToLoadState(
-            binding.characterRecView,
-            binding.characterProgressBar
+            characterRecView,
+            characterProgressBar
         ) {}
     }
 
@@ -87,29 +86,29 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
     override fun setupListener() {
         searchItems()
         bottomNavigationSelected()
-        filterListener()
+//        filterListener()
     }
 
     private fun searchItems() {
-        if (args.status == "" || args.gender == "") {
-            binding.searchCharacter.searchItem {
-                if (viewModel.charactersState.value == null) {
-                    viewModel.fetchCharacters(
-                        it,
-                        "",
-                        ""
-                    )
-                }
-            }
-        } else {
-            binding.searchCharacter.searchItem {
-                viewModel.fetchCharactersFilter(
-                    it,
-                    args.status,
-                    args.gender
-                )
-            }
-        }
+//        if (args.status == "" || args.gender == "") {
+//            binding.searchCharacter.searchItem {
+//                if (viewModel.charactersState.value == null) {
+//                    viewModel.fetchCharacters(
+//                        it,
+//                        "",
+//                        ""
+//                    )
+//                }
+//            }
+//        } else {
+//            binding.searchCharacter.searchItem {
+//                viewModel.fetchCharactersFilter(
+//                    it,
+//                    args.status,
+//                    args.gender
+//                )
+//            }
+//        }
     }
 
     private fun bottomNavigationSelected() {
@@ -118,11 +117,11 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
         }
     }
 
-    private fun filterListener() {
-        binding.filterFloatButton.setOnClickListener {
-            findNavController().navigate(R.id.action_characterFragment_to_characterDialogFragment)
-        }
-    }
+//    private fun filterListener() {
+//        binding.filterFloatButton.setOnClickListener {
+//            findNavController().navigate(R.id.action_characterFragment_to_characterDialogFragment)
+//        }
+//    }
 
     private fun fetchFirstSeenIn(position: Int, episodeUrl: String) {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
