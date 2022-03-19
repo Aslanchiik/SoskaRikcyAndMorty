@@ -1,7 +1,6 @@
 package com.example.soskarikcyandmorty.ui.fragments.character
 
 import android.net.Uri
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -11,6 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.soskarikcyandmorty.R
 import com.example.soskarikcyandmorty.bases.BaseFragment
 import com.example.soskarikcyandmorty.common.Resource
+import com.example.soskarikcyandmorty.common.exensions.bindUIToLoadState
 import com.example.soskarikcyandmorty.common.exensions.navigateSafely
 import com.example.soskarikcyandmorty.common.exensions.searchItem
 import com.example.soskarikcyandmorty.databinding.FragmentCharacterBinding
@@ -54,6 +54,10 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
             layoutManager = LinearLayoutManager(requireContext())
             adapter = characterAdapter
         }
+        characterAdapter.bindUIToLoadState(
+            binding.characterRecView,
+            binding.characterProgressBar
+        ) {}
     }
 
     override fun setupRequest() {
@@ -70,7 +74,6 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
         if (isConnected) {
             if (args.status == "" || args.gender == "") {
                 viewModel.charactersState.subscribePaging {
-                    binding.characterProgressBar.isVisible = false
                     characterAdapter.submitData(it)
                 }
             }
