@@ -6,23 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.episode.EpisodeFragment">
 
-    <SearchView
-        android:id="@+id/search_episode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:drawableStart="@drawable/ic_vector"
-        android:drawablePadding="10dp"
-        android:drawableTint="@color/white"
-        android:focusable="false"
-        android:iconifiedByDefault="false"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        android:queryHint="Поиск по эпизодам"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <SearchView-->
+<!--        android:id="@+id/search_episode"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:drawableStart="@drawable/ic_vector"-->
+<!--        android:drawablePadding="10dp"-->
+<!--        android:drawableTint="@color/white"-->
+<!--        android:focusable="false"-->
+<!--        android:iconifiedByDefault="false"-->
+<!--        android:imeOptions="actionSearch"-->
+<!--        android:inputType="text"-->
+<!--        android:paddingStart="10dp"-->
+<!--        android:queryHint="Поиск по эпизодам"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textColorHint="@color/white"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/episode_rec_view"
@@ -31,17 +31,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_episode"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_episode" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/filter_float_button"
+    <ProgressBar
+        android:id="@+id/episode_progress_bar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:backgroundTint="#25d366"
-        android:src="@drawable/ic_baseline_filter_alt_24"
+        android:indeterminateTint="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_height="wrap_content"/>
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/filter_float_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:backgroundTint="#25d366"-->
+<!--        android:src="@drawable/ic_baseline_filter_alt_24"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
