@@ -38,10 +38,12 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#484848"
+        android:background="@drawable/rounded_bottom_nav"
+        app:labelVisibilityMode="selected"
         app:itemTextColor="@color/white"
         app:layout_anchor="@id/nav_host_fragment"
         app:layout_anchorGravity="bottom"
+        android:layout_margin="10dp"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:menu="@menu/menu" />
 
