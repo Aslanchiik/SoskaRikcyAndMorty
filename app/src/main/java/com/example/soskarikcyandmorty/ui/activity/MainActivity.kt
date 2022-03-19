@@ -44,6 +44,10 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
+//        val badge = bottomNavigation.getOrCreateBadge(R.menu.)
+//        badge.isVisible = true
+//        badge.number = 99
+
         setupWithNavController(insideToolbar, navController, appBarConfiguration)
         setupWithNavController(bottomNavigation, navController)
 
