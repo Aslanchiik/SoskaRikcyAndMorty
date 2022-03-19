@@ -2,6 +2,7 @@ package com.example.soskarikcyandmorty.ui.fragments.character
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.soskarikcyandmorty.bases.BaseViewModel
 import com.example.soskarikcyandmorty.data.repositories.CharacterRepositoryImpl
 import com.example.soskarikcyandmorty.domain.models.CharacterModel
@@ -21,23 +22,23 @@ class CharacterViewModel @Inject constructor(
 
     fun fetchEpisode(id: Int) = episodeIdUseCase(id)
 
-    private val _charactersState = MutableStateFlow<PagingData<CharacterModel>>(PagingData.empty())
-    val charactersState: StateFlow<PagingData<CharacterModel>> = _charactersState
+    private val _charactersState = MutableStateFlow<PagingData<CharacterModel>?>(null)
+    val charactersState: StateFlow<PagingData<CharacterModel>?> = _charactersState
 
     fun fetchCharacters(name: String?, status: String?, gender: String?) {
         viewModelScope.launch {
-            repository.fetchCharacter(name, status, gender).collect {
+            repository.fetchCharacter(name, status, gender).cachedIn(viewModelScope).collect {
                 _charactersState.value = it
             }
         }
     }
 
-    private val _charactersStateFilter = MutableStateFlow<PagingData<CharacterModel>>(PagingData.empty())
-    val charactersStateFilter: StateFlow<PagingData<CharacterModel>> = _charactersStateFilter
+    private val _charactersStateFilter = MutableStateFlow<PagingData<CharacterModel>?>(null)
+    val charactersStateFilter: StateFlow<PagingData<CharacterModel>?> = _charactersStateFilter
 
     fun fetchCharactersFilter(name: String?, status: String?, gender: String?) =
         viewModelScope.launch {
-            repository.fetchCharacter(name, status, gender).collect {
+            repository.fetchCharacter(name, status, gender).cachedIn(viewModelScope).collect {
                 _charactersStateFilter.value = it
             }
         }
