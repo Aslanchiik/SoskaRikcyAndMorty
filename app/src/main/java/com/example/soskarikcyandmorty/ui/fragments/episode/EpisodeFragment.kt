@@ -11,6 +11,7 @@ import com.example.soskarikcyandmorty.common.exensions.bindUIToLoadState
 import com.example.soskarikcyandmorty.databinding.FragmentEpisodeBinding
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.EpisodeAdapter
+import com.example.soskarikcyandmorty.ui.adapters.paging.LoadStateAdapter
 import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,7 +44,9 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_e
     private fun setupRecyclerview() = with(binding) {
         episodeRecView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = episodeAdapter
+            adapter = episodeAdapter.withLoadStateFooter(
+                footer = LoadStateAdapter { episodeAdapter.retry() }
+            )
         }
         episodeAdapter.bindUIToLoadState(
             episodeRecView, episodeProgressBar

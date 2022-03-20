@@ -11,6 +11,7 @@ import com.example.soskarikcyandmorty.common.exensions.bindUIToLoadState
 import com.example.soskarikcyandmorty.databinding.FragmentLocationBinding
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.LocationAdapter
+import com.example.soskarikcyandmorty.ui.adapters.paging.LoadStateAdapter
 import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,7 +43,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     private fun setupRecyclerView() = with(binding) {
         locationRecView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = locationAdapter
+            adapter = locationAdapter.withLoadStateFooter(
+                footer = LoadStateAdapter { locationAdapter.retry() }
+            )
         }
         locationAdapter.bindUIToLoadState(
             locationRecView,
