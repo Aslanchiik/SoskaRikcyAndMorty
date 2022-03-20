@@ -15,6 +15,7 @@ import com.example.soskarikcyandmorty.common.exensions.navigateSafely
 import com.example.soskarikcyandmorty.databinding.FragmentCharacterBinding
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.CharacterAdapter
+import com.example.soskarikcyandmorty.ui.adapters.paging.LoadStateAdapter
 import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -51,7 +52,9 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
     private fun setupRecyclerView() = with(binding) {
         characterRecView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = characterAdapter
+            adapter = characterAdapter.withLoadStateFooter(
+                footer = LoadStateAdapter { characterAdapter.retry() }
+            )
         }
         characterAdapter.bindUIToLoadState(
             characterRecView,
