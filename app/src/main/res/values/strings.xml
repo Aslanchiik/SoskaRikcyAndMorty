@@ -7,6 +7,7 @@
     <string name="fragment_detail_location">Location:</string>
     <string name="last_known_location">Last known location:</string>
     <string name="first_seen_in">First seen in:</string>
+    <string name="retry">Retry</string>
 
     <string-array name="status">
         <item> Alive</item>
