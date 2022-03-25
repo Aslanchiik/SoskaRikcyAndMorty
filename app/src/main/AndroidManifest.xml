@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name="com.example.soskarikcyandmorty.presentation.ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

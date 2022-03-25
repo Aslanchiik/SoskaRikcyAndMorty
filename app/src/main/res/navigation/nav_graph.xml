@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.character.CharacterFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.character.CharacterFragment"
         android:label="RickyAndMorty"
         tools:layout="@layout/fragment_character">
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/episodeFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.episode.EpisodeFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.episode.EpisodeFragment"
         android:label="RickyAndMorty"
         tools:layout="@layout/fragment_episode">
         <action
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.location.LocationFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.location.LocationFragment"
         android:label="RickyAndMorty"
         tools:layout="@layout/fragment_location">
         <action
@@ -80,7 +80,7 @@
 
     <fragment
         android:id="@+id/characterDetailFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.character.detail.CharacterDetailFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.character.detail.CharacterDetailFragment"
         android:label="{label}"
         tools:layout="@layout/fragment_detail">
         <argument
@@ -95,12 +95,12 @@
 
     <fragment
         android:id="@+id/noConnectFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.noconnect.NoConnectFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.noconnect.NoConnectFragment"
         android:label="fragment_no_connect"
         tools:layout="@layout/fragment_no_connect" />
     <dialog
         android:id="@+id/dialogFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.character.dialog.DialogFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.character.dialog.DialogFragment"
         android:label="fragment_dialog_fragment"
         tools:layout="@layout/fragment_dialog_fragment">
         <argument
@@ -109,7 +109,7 @@
     </dialog>
     <fragment
         android:id="@+id/filterFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.filter.FilterFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.filter.FilterFragment"
         android:label="RickyAndMorty"
         tools:layout="@layout/fragment_filter" >
         <action
@@ -124,7 +124,7 @@
     </fragment>
     <fragment
         android:id="@+id/episodeDetailFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.episode.detail.EpisodeDetailFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.episode.detail.EpisodeDetailFragment"
         android:label="{label}"
         tools:layout="@layout/fragment_episode_detail">
         <argument
@@ -137,7 +137,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationDetailFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.location.detail.LocationDetailFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.location.detail.LocationDetailFragment"
         android:label="{label}"
         tools:layout="@layout/fragment_location_detail">
         <argument
@@ -149,7 +149,7 @@
     </fragment>
     <dialog
         android:id="@+id/characterDialogFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.character.dialog.CharacterDialogFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.character.dialog.CharacterDialogFragment"
         android:label="fragment_character_dialog"
         tools:layout="@layout/fragment_character_dialog">
         <action
@@ -158,7 +158,7 @@
     </dialog>
     <dialog
         android:id="@+id/locationDialogFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.location.dialog.LocationDialogFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.location.dialog.LocationDialogFragment"
         android:label="fragment_location_dilaog"
         tools:layout="@layout/fragment_location_dilaog">
         <action
@@ -167,7 +167,7 @@
     </dialog>
     <dialog
         android:id="@+id/episodeDialogFragment"
-        android:name="com.example.soskarikcyandmorty.ui.fragments.episode.dialog.EpisodeDialogFragment"
+        android:name="com.example.soskarikcyandmorty.presentation.ui.fragments.episode.dialog.EpisodeDialogFragment"
         android:label="fragment_episode_dialog"
         tools:layout="@layout/fragment_episode_dialog" >
         <action

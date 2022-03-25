@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".ui.fragments.location.detail.LocationDetailFragment">
+    tools:context=".presentation.ui.fragments.location.detail.LocationDetailFragment">
 
     <TextView
         android:id="@+id/location_detail_text_name"

@@ -7,7 +7,7 @@
     android:background="@drawable/light"
     android:minWidth="300dp"
     android:minHeight="220dp"
-    tools:context=".ui.fragments.location.dialog.LocationDialogFragment">
+    tools:context=".presentation.ui.fragments.location.dialog.LocationDialogFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/first_vertical_guid"

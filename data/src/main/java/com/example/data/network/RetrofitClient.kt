@@ -1,10 +1,10 @@
-package com.example.soskarikcyandmorty.data.network
+package com.example.data.network
 
-import com.example.soskarikcyandmorty.constants.Constants.BASE_URL
-import com.example.data.network.apiservices.CharacterApiService
-import com.example.data.network.apiservices.EpisodeApiService
-import com.example.data.network.apiservices.FilterApiService
-import com.example.data.network.apiservices.LocationApiService
+import com.example.data.constants.Constants.BASE_URL
+import com.example.data.network.remote.apiservices.CharacterApiService
+import com.example.data.network.remote.apiservices.EpisodeApiService
+import com.example.data.network.remote.apiservices.FilterApiService
+import com.example.data.network.remote.apiservices.LocationApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

@@ -1,10 +1,10 @@
 package com.example.soskarikcyandmorty.di
 
-import com.example.data.network.apiservices.CharacterApiService
-import com.example.data.network.apiservices.EpisodeApiService
-import com.example.data.network.apiservices.FilterApiService
-import com.example.data.network.apiservices.LocationApiService
-import com.example.soskarikcyandmorty.data.network.RetrofitClient
+import com.example.data.network.remote.apiservices.CharacterApiService
+import com.example.data.network.remote.apiservices.EpisodeApiService
+import com.example.data.network.remote.apiservices.FilterApiService
+import com.example.data.network.remote.apiservices.LocationApiService
+import com.example.data.network.RetrofitClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

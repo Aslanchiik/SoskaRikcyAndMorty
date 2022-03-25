@@ -10,5 +10,3 @@ rootProject.name = "SoskaRikcyAndMorty"
 include ':app'
 include ':domain'
 include ':data'
-include ':common'
-include ':core'

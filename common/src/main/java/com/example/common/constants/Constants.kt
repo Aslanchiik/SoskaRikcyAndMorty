@@ -1,4 +1,4 @@
-package com.example.soskarikcyandmorty.constants
+package com.example.common.constants
 
 object Constants {
     const val BASE_URL = "https://rickandmortyapi.com/"

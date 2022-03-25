@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.character.detail.locationcharacterdetail.LocationCharacterDetailFragment">
+    tools:context=".presentation.ui.fragments.character.detail.locationcharacterdetail.LocationCharacterDetailFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/location_character_detail_rec_view"

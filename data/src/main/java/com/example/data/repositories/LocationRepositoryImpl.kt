@@ -1,9 +1,9 @@
 package com.example.data.repositories
 
-import com.example.core.bases.BaseRepository
-import com.example.data.repositories.pagingsource.LocationPagingSource
-import com.example.data.network.apiservices.LocationApiService
-import com.example.data.network.dtos.toLocation
+import com.example.data.repositories.base.BaseRepository
+import com.example.data.network.remote.pagingsource.LocationPagingSource
+import com.example.data.network.remote.apiservices.LocationApiService
+import com.example.data.network.remote.dtos.toLocation
 import com.example.domain.repositories.LocationRepository
 import javax.inject.Inject
 

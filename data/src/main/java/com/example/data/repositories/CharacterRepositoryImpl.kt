@@ -1,9 +1,9 @@
 package com.example.data.repositories
 
-import com.example.core.bases.BaseRepository
-import com.example.data.network.dtos.toCharacter
-import com.example.data.repositories.pagingsource.CharacterPagingSource
-import com.example.data.network.apiservices.CharacterApiService
+import com.example.data.repositories.base.BaseRepository
+import com.example.data.network.remote.dtos.toCharacter
+import com.example.data.network.remote.pagingsource.CharacterPagingSource
+import com.example.data.network.remote.apiservices.CharacterApiService
 import com.example.domain.repositories.CharacterRepository
 import javax.inject.Inject
 

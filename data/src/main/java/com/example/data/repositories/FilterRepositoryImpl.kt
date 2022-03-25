@@ -1,10 +1,10 @@
 package com.example.data.repositories
 
-import com.example.core.bases.BaseRepository
-import com.example.data.network.dtos.toCharacter
-import com.example.data.network.dtos.toEpisode
-import com.example.data.network.apiservices.FilterApiService
-import com.example.data.network.dtos.toLocation
+import com.example.data.repositories.base.BaseRepository
+import com.example.data.network.remote.dtos.toCharacter
+import com.example.data.network.remote.dtos.toEpisode
+import com.example.data.network.remote.apiservices.FilterApiService
+import com.example.data.network.remote.dtos.toLocation
 import com.example.domain.repositories.FilterRepository
 import javax.inject.Inject
 

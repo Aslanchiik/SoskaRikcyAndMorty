@@ -106,7 +106,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_character_status" />
 
-            <com.example.soskarikcyandmorty.ui.customviews.CustomTextView
+            <com.example.soskarikcyandmorty.presentation.ui.customviews.CustomTextView
                 android:id="@+id/item_last_location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_last_location" />
 
-            <com.example.soskarikcyandmorty.ui.customviews.CustomTextView
+            <com.example.soskarikcyandmorty.presentation.ui.customviews.CustomTextView
                 android:id="@+id/item_first_seen_in"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -41,7 +41,6 @@ dependencies {
 
     implementation project(path: ':domain')
     implementation project(path: ':data')
-    api(project(":core"))
 
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
@@ -88,6 +87,12 @@ dependencies {
     def view_binding_property_delegate = "1.4.7"
     // To use only without reflection variants of viewBinding
     implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:$view_binding_property_delegate"
+
+    def version = "2.4.1"
+
+    // | for Lifecycles only (without ViewModel or LiveData)
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$version")
+
 
     // coordinatorLayout
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"

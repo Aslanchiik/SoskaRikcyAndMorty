@@ -1,9 +1,9 @@
 package com.example.data.repositories
 
-import com.example.core.bases.BaseRepository
-import com.example.data.network.apiservices.EpisodeApiService
-import com.example.data.network.dtos.toEpisode
-import com.example.data.repositories.pagingsource.EpisodePagingSource
+import com.example.data.repositories.base.BaseRepository
+import com.example.data.network.remote.apiservices.EpisodeApiService
+import com.example.data.network.remote.dtos.toEpisode
+import com.example.data.network.remote.pagingsource.EpisodePagingSource
 import com.example.domain.repositories.EpisodeRepository
 import javax.inject.Inject
 

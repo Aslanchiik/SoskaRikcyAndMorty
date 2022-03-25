@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1c1c1c"
-    tools:context=".ui.fragments.episode.detail.EpisodeDetailFragment">
+    tools:context=".presentation.ui.fragments.episode.detail.EpisodeDetailFragment">
 
     <TextView
         android:id="@+id/text_of_name"
