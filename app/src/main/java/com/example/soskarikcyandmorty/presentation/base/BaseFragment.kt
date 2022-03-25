@@ -1,4 +1,4 @@
-package com.example.core.bases
+package com.example.soskarikcyandmorty.presentation.base
 
 import android.os.Bundle
 import android.view.View
@@ -9,9 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.PagingData
 import androidx.viewbinding.ViewBinding
-import com.example.common.state.UIState
+import com.example.soskarikcyandmorty.presentation.ui.state.UIState
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 
 abstract class BaseFragment<VB : ViewBinding>(@LayoutRes layoutId: Int) :
     Fragment(layoutId) {
