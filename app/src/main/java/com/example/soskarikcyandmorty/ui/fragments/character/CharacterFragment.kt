@@ -1,24 +1,24 @@
 package com.example.soskarikcyandmorty.ui.fragments.character
 
 import android.net.Uri
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.common.resource.Resource
+import com.example.core.bases.BaseFragment
+import com.example.core.exensions.bindUIToLoadState
+import com.example.core.exensions.navigateSafely
+import com.example.core.utils.NetworkConnectionLiveData
 import com.example.soskarikcyandmorty.R
-import com.example.soskarikcyandmorty.bases.BaseFragment
-import com.example.soskarikcyandmorty.common.Resource
-import com.example.soskarikcyandmorty.common.exensions.bindUIToLoadState
-import com.example.soskarikcyandmorty.common.exensions.navigateSafely
 import com.example.soskarikcyandmorty.databinding.FragmentCharacterBinding
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.CharacterAdapter
 import com.example.soskarikcyandmorty.ui.adapters.paging.LoadStateAdapter
-import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragment_character) {

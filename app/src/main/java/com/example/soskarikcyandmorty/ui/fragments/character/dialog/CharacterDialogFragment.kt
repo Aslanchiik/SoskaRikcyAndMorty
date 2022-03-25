@@ -9,8 +9,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
-import com.example.soskarikcyandmorty.common.exensions.setDropMenu
-import com.example.soskarikcyandmorty.common.exensions.setDropMenuForGender
+import com.example.core.exensions.setDropMenu
+import com.example.core.exensions.setDropMenuForGender
 import com.example.soskarikcyandmorty.databinding.FragmentCharacterDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
 

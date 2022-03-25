@@ -1,13 +1,13 @@
 package com.example.soskarikcyandmorty.ui.fragments.filter
 
-import com.example.soskarikcyandmorty.bases.BaseViewModel
-import com.example.soskarikcyandmorty.domain.models.CharacterModel
-import com.example.soskarikcyandmorty.domain.models.EpisodeModel
-import com.example.soskarikcyandmorty.domain.models.LocationModel
-import com.example.soskarikcyandmorty.domain.usecase.FilterCharacterUseCase
-import com.example.soskarikcyandmorty.domain.usecase.FilterEpisodeUseCase
-import com.example.soskarikcyandmorty.domain.usecase.FilterLocationUseCase
-import com.example.soskarikcyandmorty.presentation.state.UIState
+import com.example.common.state.UIState
+import com.example.domain.models.CharacterModel
+import com.example.domain.usecase.FilterCharacterUseCase
+import com.example.domain.usecase.FilterEpisodeUseCase
+import com.example.domain.usecase.FilterLocationUseCase
+import com.example.core.bases.BaseViewModel
+import com.example.domain.models.EpisodeModel
+import com.example.domain.models.LocationModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,8 +20,7 @@ class FilterViewModel @Inject constructor(
     private val episodeFilterUseCase: FilterEpisodeUseCase
 ) : BaseViewModel() {
 
-    private val _fetchCharacterFilter =
-        MutableStateFlow<UIState<List<CharacterModel>>>(UIState.Loading())
+    private val _fetchCharacterFilter = MutableStateFlow<UIState<List<CharacterModel>>>(UIState.Loading())
     val fetchCharacterFilter: StateFlow<UIState<List<CharacterModel>>> = _fetchCharacterFilter
 
     fun fetchCharacterFilter(name: String?) {

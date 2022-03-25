@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core.bases.BaseDiffUtilItemCallback
+import com.example.core.exensions.loadImagesWithGlide
+import com.example.core.exensions.setOnSingleClickListener
+import com.example.core.exensions.setOnSingleLongClickListener
+import com.example.domain.models.CharacterModel
 import com.example.soskarikcyandmorty.R
-import com.example.soskarikcyandmorty.bases.BaseDiffUtilItemCallback
-import com.example.soskarikcyandmorty.common.exensions.loadImagesWithGlide
-import com.example.soskarikcyandmorty.common.exensions.setOnSingleClickListener
-import com.example.soskarikcyandmorty.common.exensions.setOnSingleLongClickListener
 import com.example.soskarikcyandmorty.constants.Constants.PAYLOAD_TITLE
 import com.example.soskarikcyandmorty.databinding.ItemCharacterBinding
-import com.example.soskarikcyandmorty.domain.models.CharacterModel
 
 class CharacterAdapter(
     val onItemClick: (name: String, id: Int) -> Unit,

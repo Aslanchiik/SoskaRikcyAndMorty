@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.example.domain.models.RickyAndMortyModel
 import com.example.soskarikcyandmorty.R
 import com.example.soskarikcyandmorty.databinding.ItemCharacterBinding
 import com.example.soskarikcyandmorty.databinding.ItemEpisodeBinding
 import com.example.soskarikcyandmorty.databinding.ItemLocationBinding
-import com.example.soskarikcyandmorty.domain.models.RickyAndMortyModel
 import com.example.soskarikcyandmorty.ui.adapters.viewholder.FilterViewHolderAdapter
 
 class FilterAdapter(

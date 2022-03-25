@@ -6,18 +6,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.core.bases.BaseFragment
+import com.example.core.exensions.searchItem
+import com.example.common.state.UIState
+import com.example.domain.models.RickyAndMortyModel
+import com.example.domain.models.toCharacterModel
+import com.example.domain.models.toEpisodeModel
+import com.example.domain.models.toLocationModel
 import com.example.soskarikcyandmorty.R
-import com.example.soskarikcyandmorty.bases.BaseFragment
-import com.example.soskarikcyandmorty.common.exensions.searchItem
 import com.example.soskarikcyandmorty.databinding.FragmentFilterBinding
-import com.example.soskarikcyandmorty.domain.models.RickyAndMortyModel
-import com.example.soskarikcyandmorty.domain.models.toCharacterModel
-import com.example.soskarikcyandmorty.domain.models.toEpisodeModel
-import com.example.soskarikcyandmorty.domain.models.toLocationModel
-import com.example.soskarikcyandmorty.presentation.state.UIState
 import com.example.soskarikcyandmorty.ui.adapters.FilterAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class FilterFragment : BaseFragment<FragmentFilterBinding>(R.layout.fragment_filter) {

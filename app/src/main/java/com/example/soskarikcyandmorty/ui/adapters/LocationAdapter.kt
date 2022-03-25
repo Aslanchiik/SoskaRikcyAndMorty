@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.soskarikcyandmorty.bases.BaseDiffUtilItemCallback
-import com.example.soskarikcyandmorty.common.exensions.setOnSingleClickListener
+import com.example.core.bases.BaseDiffUtilItemCallback
+import com.example.core.exensions.setOnSingleClickListener
+import com.example.domain.models.LocationModel
 import com.example.soskarikcyandmorty.databinding.ItemLocationBinding
-import com.example.soskarikcyandmorty.domain.models.LocationModel
 
 class LocationAdapter(
     val onItemClick: (name: String, id: Int) -> Unit

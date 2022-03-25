@@ -3,13 +3,13 @@ package com.example.soskarikcyandmorty.ui.adapters.viewholder
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.example.core.exensions.loadImagesWithGlide
+import com.example.core.exensions.setOnSingleClickListener
+import com.example.domain.models.RickyAndMortyModel
 import com.example.soskarikcyandmorty.R
-import com.example.soskarikcyandmorty.common.exensions.loadImagesWithGlide
-import com.example.soskarikcyandmorty.common.exensions.setOnSingleClickListener
 import com.example.soskarikcyandmorty.databinding.ItemCharacterBinding
 import com.example.soskarikcyandmorty.databinding.ItemEpisodeBinding
 import com.example.soskarikcyandmorty.databinding.ItemLocationBinding
-import com.example.soskarikcyandmorty.domain.models.RickyAndMortyModel
 
 sealed class FilterViewHolderAdapter<out V : ViewBinding>(
     binding: V

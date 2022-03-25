@@ -1,9 +1,9 @@
 package com.example.soskarikcyandmorty.ui.fragments.episode.detail
 
-import com.example.soskarikcyandmorty.bases.BaseViewModel
-import com.example.soskarikcyandmorty.domain.models.EpisodeModel
-import com.example.soskarikcyandmorty.domain.usecase.EpisodeDetailUseCase
-import com.example.soskarikcyandmorty.presentation.state.UIState
+import com.example.core.bases.BaseViewModel
+import com.example.common.state.UIState
+import com.example.domain.models.EpisodeModel
+import com.example.domain.usecase.EpisodeDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

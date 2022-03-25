@@ -3,14 +3,14 @@ package com.example.soskarikcyandmorty.ui.fragments.character
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.soskarikcyandmorty.bases.BaseViewModel
-import com.example.soskarikcyandmorty.data.repositories.CharacterRepositoryImpl
-import com.example.soskarikcyandmorty.domain.models.CharacterModel
-import com.example.soskarikcyandmorty.domain.usecase.EpisodeDetailUseCase
+import com.example.core.bases.BaseViewModel
+import com.example.data.repositories.CharacterRepositoryImpl
+import com.example.domain.models.CharacterModel
+import com.example.domain.usecase.EpisodeDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +27,7 @@ class CharacterViewModel @Inject constructor(
 
     fun fetchCharacters(name: String?, status: String?, gender: String?) {
         viewModelScope.launch {
-            repository.fetchCharacter(name, status, gender).cachedIn(viewModelScope).collect {
+            repository.fetchCharacter(name, status, gender).cachedIn(viewModelScope).collectLatest {
                 _charactersState.value = it
             }
         }
@@ -38,7 +38,7 @@ class CharacterViewModel @Inject constructor(
 
     fun fetchCharactersFilter(name: String?, status: String?, gender: String?) =
         viewModelScope.launch {
-            repository.fetchCharacter(name, status, gender).cachedIn(viewModelScope).collect {
+            repository.fetchCharacter(name, status, gender).cachedIn(viewModelScope).collectLatest {
                 _charactersStateFilter.value = it
             }
         }

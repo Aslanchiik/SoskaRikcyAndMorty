@@ -3,8 +3,8 @@ package com.example.soskarikcyandmorty.ui.fragments.character.detail.locationcha
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.core.bases.BaseFragment
 import com.example.soskarikcyandmorty.R
-import com.example.soskarikcyandmorty.bases.BaseFragment
 import com.example.soskarikcyandmorty.databinding.FragmentLocationCharacterDetailBinding
 import com.example.soskarikcyandmorty.ui.adapters.LocationCharacterDetailAdapter
 import dagger.hilt.android.AndroidEntryPoint

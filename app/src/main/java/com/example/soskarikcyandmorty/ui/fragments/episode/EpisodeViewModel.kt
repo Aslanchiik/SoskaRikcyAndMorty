@@ -2,13 +2,13 @@ package com.example.soskarikcyandmorty.ui.fragments.episode
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.example.soskarikcyandmorty.bases.BaseViewModel
-import com.example.soskarikcyandmorty.data.repositories.EpisodeRepositoryImpl
-import com.example.soskarikcyandmorty.domain.models.EpisodeModel
+import com.example.core.bases.BaseViewModel
+import com.example.data.repositories.EpisodeRepositoryImpl
+import com.example.domain.models.EpisodeModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,16 +21,17 @@ class EpisodeViewModel @Inject constructor(
     val episodeState: StateFlow<PagingData<EpisodeModel>> = _episodesState
 
     fun fetchEpisodes(name: String?, episode: String?) = viewModelScope.launch {
-        repositoryImpl.fetchEpisode(name, episode).collect {
+        repositoryImpl.fetchEpisode(name, episode).collectLatest {
             _episodesState.value = it
         }
     }
 
-    private val _episodesStateFilter = MutableStateFlow<PagingData<EpisodeModel>>(PagingData.empty())
+    private val _episodesStateFilter =
+        MutableStateFlow<PagingData<EpisodeModel>>(PagingData.empty())
     val episodeStateFilter: StateFlow<PagingData<EpisodeModel>> = _episodesStateFilter
 
     fun fetchEpisodesFilter(name: String?, episode: String?) = viewModelScope.launch {
-        repositoryImpl.fetchEpisode(name, episode).collect {
+        repositoryImpl.fetchEpisode(name, episode).collectLatest {
             _episodesStateFilter.value = it
         }
     }

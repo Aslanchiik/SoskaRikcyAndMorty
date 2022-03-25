@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.soskarikcyandmorty.bases.BaseDiffUtilItemCallback
-import com.example.soskarikcyandmorty.common.exensions.setOnSingleClickListener
+import com.example.core.bases.BaseDiffUtilItemCallback
+import com.example.core.exensions.setOnSingleClickListener
+import com.example.domain.models.EpisodeModel
 import com.example.soskarikcyandmorty.databinding.ItemEpisodeBinding
-import com.example.soskarikcyandmorty.domain.models.EpisodeModel
 
 class EpisodeAdapter(
-    val onItemClick: (name: String,id: Int) -> Unit
+    val onItemClick: (name: String, id: Int) -> Unit
 ) : PagingDataAdapter<EpisodeModel, EpisodeAdapter.ViewHolder>(BaseDiffUtilItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,7 +33,7 @@ class EpisodeAdapter(
         init {
             itemView.setOnSingleClickListener {
                 getItem(absoluteAdapterPosition)?.apply {
-                    onItemClick(name,id)
+                    onItemClick(name, id)
                 }
             }
         }

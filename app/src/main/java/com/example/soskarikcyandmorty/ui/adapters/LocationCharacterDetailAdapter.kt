@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.soskarikcyandmorty.bases.BaseDiffUtilItemCallback
+import com.example.core.bases.BaseDiffUtilItemCallback
+import com.example.domain.models.LocationModel
 import com.example.soskarikcyandmorty.databinding.ItemLocationCharacterDetailBinding
-import com.example.soskarikcyandmorty.domain.models.LocationModel
 
 class LocationCharacterDetailAdapter :
     PagingDataAdapter<LocationModel, LocationCharacterDetailAdapter.ViewHolder>(

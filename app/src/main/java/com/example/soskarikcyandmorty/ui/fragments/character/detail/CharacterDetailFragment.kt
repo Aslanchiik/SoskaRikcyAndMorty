@@ -4,13 +4,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.core.bases.BaseFragment
+import com.example.core.exensions.setImage
+import com.example.common.state.UIState
+import com.example.core.utils.ZoomOutPageTransformer
 import com.example.soskarikcyandmorty.R
-import com.example.soskarikcyandmorty.bases.BaseFragment
-import com.example.soskarikcyandmorty.common.exensions.setImage
 import com.example.soskarikcyandmorty.databinding.FragmentDetailBinding
-import com.example.soskarikcyandmorty.presentation.state.UIState
 import com.example.soskarikcyandmorty.ui.adapters.CharacterDetailViewPagerAdapter
-import com.example.soskarikcyandmorty.utils.ZoomOutPageTransformer
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 

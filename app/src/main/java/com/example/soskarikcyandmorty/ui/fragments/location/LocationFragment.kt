@@ -5,14 +5,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.core.bases.BaseFragment
+import com.example.core.exensions.bindUIToLoadState
+import com.example.core.utils.NetworkConnectionLiveData
 import com.example.soskarikcyandmorty.R
-import com.example.soskarikcyandmorty.bases.BaseFragment
-import com.example.soskarikcyandmorty.common.exensions.bindUIToLoadState
 import com.example.soskarikcyandmorty.databinding.FragmentLocationBinding
 import com.example.soskarikcyandmorty.ui.activity.MainActivity
 import com.example.soskarikcyandmorty.ui.adapters.LocationAdapter
 import com.example.soskarikcyandmorty.ui.adapters.paging.LoadStateAdapter
-import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

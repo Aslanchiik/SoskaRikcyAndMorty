@@ -3,10 +3,10 @@ package com.example.soskarikcyandmorty.ui.fragments.noconnect
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.core.bases.BaseFragment
+import com.example.core.utils.NetworkConnectionLiveData
 import com.example.soskarikcyandmorty.R
-import com.example.soskarikcyandmorty.bases.BaseFragment
 import com.example.soskarikcyandmorty.databinding.FragmentNoConnectBinding
-import com.example.soskarikcyandmorty.utils.NetworkConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +19,7 @@ class NoConnectFragment : BaseFragment<FragmentNoConnectBinding>(R.layout.fragme
         binding.tryAgainButton.setOnClickListener {
             if (isCheckInternet) {
                 findNavController().navigateUp()
-            }  else
+            } else
                 Toast.makeText(requireContext(), "Подключите интернет", Toast.LENGTH_SHORT).show()
         }
     }
