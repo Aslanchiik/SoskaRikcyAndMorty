@@ -1,9 +1,16 @@
 plugins {
+    // application
     id("com.android.application")
+    // kotlin-android
     id("kotlin-android")
+    // sage args
     id("androidx.navigation.safeargs.kotlin")
+    // hilt android
     id("dagger.hilt.android.plugin")
+    //kapt
     id("kotlin-kapt")
+    // easylauncher
+    id ("com.starter.easylauncher") version "5.0.0"
 }
 
 android {
@@ -110,3 +117,11 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
 }
+
+   easylauncher {
+       buildTypes {
+           create("debug") {
+               filters(customRibbon(ribbonColor = "#FF6200EE", textSizeRatio = 0.150F))
+           }
+       }
+   }
