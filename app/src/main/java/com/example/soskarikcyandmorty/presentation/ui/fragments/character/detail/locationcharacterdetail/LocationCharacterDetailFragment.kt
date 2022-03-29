@@ -29,7 +29,7 @@ class LocationCharacterDetailFragment :
     }
 
     override fun setupObserves() {
-        viewModel.locationCharacterDetailState.subscribePaging {
+        viewModel.locationCharacterDetailState.collectPaging {
             locationCharacterAdapter.submitData(it)
         }
     }

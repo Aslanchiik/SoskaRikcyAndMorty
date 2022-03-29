@@ -10,7 +10,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.PagingData
 import androidx.viewbinding.ViewBinding
 import com.example.soskarikcyandmorty.presentation.ui.state.UIState
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 abstract class BaseFragment<VB : ViewBinding>(@LayoutRes layoutId: Int) :
     Fragment(layoutId) {
@@ -37,29 +40,54 @@ abstract class BaseFragment<VB : ViewBinding>(@LayoutRes layoutId: Int) :
 
     protected open fun setupObserves() {}
 
-    protected open fun <T> StateFlow<UIState<T>>.subscribe(
-        state: Lifecycle.State = Lifecycle.State.STARTED,
-        action: (UIState<T>) -> Unit,
+    protected fun <T> StateFlow<UIState<T>>.collectUIState(
+        lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
+        collector: FlowCollector<UIState<T>>
     ) {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewLifecycleOwner.repeatOnLifecycle(state) {
-                this@subscribe.collect {
-                    action(it)
-                }
+        collectFlowSafely(lifecycleState) { this.collect(collector) }
+    }
+
+    protected fun <T : Any> StateFlow<PagingData<T>?>.collectPaging(
+        lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
+        action: suspend (value: PagingData<T>) -> Unit
+    ) {
+        collectFlowSafely(lifecycleState) { this.collectLatest { it?.let { action(it) } } }
+    }
+
+    private fun collectFlowSafely(
+        lifecycleState: Lifecycle.State,
+        collect: suspend () -> Unit
+    ) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(lifecycleState) {
+                collect()
             }
         }
     }
 
-    protected open fun <T : Any> StateFlow<PagingData<T>?>.subscribePaging(
-        state: Lifecycle.State = Lifecycle.State.STARTED,
-        action: suspend (PagingData<T>) -> Unit,
-    ) {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewLifecycleOwner.repeatOnLifecycle(state) {
-                this@subscribePaging.collect {
-                    it?.let { action(it) }
-                }
-            }
-        }
-    }
+    //    protected open fun <T> StateFlow<UIState<T>>.subscribe(
+//        state: Lifecycle.State = Lifecycle.State.STARTED,
+//        action: (UIState<T>) -> Unit,
+//    ) {
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewLifecycleOwner.repeatOnLifecycle(state) {
+//                this@subscribe.collect {
+//                    action(it)
+//                }
+//            }
+//        }
+//    }
+//
+//    protected open fun <T : Any> StateFlow<PagingData<T>?>.subscribePaging(
+//        state: Lifecycle.State = Lifecycle.State.STARTED,
+//        action: suspend (PagingData<T>) -> Unit,
+//    ) {
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewLifecycleOwner.repeatOnLifecycle(state) {
+//                this@subscribePaging.collect {
+//                    it?.let { action(it) }
+//                }
+//            }
+//        }
+//    }
 }

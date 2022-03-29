@@ -24,7 +24,7 @@ class LocationDetailFragment :
 
     override fun setupObserves() {
         with(binding) {
-            viewModel.fetchLocationId.subscribe {
+            viewModel.fetchLocationId.collectUIState {
                 when (it) {
                     is UIState.Error -> {
                     }
@@ -36,6 +36,7 @@ class LocationDetailFragment :
                         locationDetailDimension.text = it.data.dimension
                         locationDetailType.text = it.data.type
                     }
+                    is UIState.Idle -> {}
                 }
             }
         }

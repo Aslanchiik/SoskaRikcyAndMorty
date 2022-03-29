@@ -24,7 +24,7 @@ class EpisodeDetailFragment :
 
     override fun setupObserves() {
         with(binding) {
-            viewModel.fetchEpisodeId.subscribe {
+            viewModel.fetchEpisodeId.collectUIState {
                 when (it) {
                     is UIState.Error -> {
                     }
@@ -35,6 +35,7 @@ class EpisodeDetailFragment :
                         episodeAirDate.text = it.data.air_date
                         episodeCreated.text = it.data.created
                     }
+                    is UIState.Idle -> {}
                 }
             }
         }

@@ -64,11 +64,11 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     override fun setupObserves() {
         if (isConnect) {
             if (args.type == "" && args.dimension == "") {
-                viewModel.locationState.subscribePaging {
+                viewModel.locationState.collectPaging {
                     locationAdapter.submitData(it)
                 }
             } else {
-                viewModel.locationStateFilter.subscribePaging {
+                viewModel.locationStateFilter.collectPaging {
                     locationAdapter.submitData(it)
                 }
             }

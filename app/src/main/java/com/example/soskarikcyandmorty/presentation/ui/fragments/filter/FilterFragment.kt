@@ -68,6 +68,7 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(R.layout.fragment_fil
                         }
                         list.addAll(sortedList.map { it.toCharacterModelUI() })
                     }
+                    is UIState.Idle -> {}
                 }
                 filterAdapter.notifyDataSetChanged()
             }
@@ -92,6 +93,7 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(R.layout.fragment_fil
                             }
                             list.addAll(sortedList.map { it.toLocationModelUI() })
                         }
+                    is UIState.Idle -> {}
                 }
                 filterAdapter.notifyDataSetChanged()
             }
@@ -116,6 +118,7 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(R.layout.fragment_fil
                             }
                             list.addAll(sortedList.map { it.toEpisodeModelUI() })
                         }
+                    is UIState.Idle -> {}
                 }
                 filterAdapter.notifyDataSetChanged()
             }

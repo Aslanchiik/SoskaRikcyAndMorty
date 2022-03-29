@@ -53,7 +53,7 @@ class CharacterDetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fra
 
     override fun setupObserves() {
         with(binding) {
-            viewModel.fetchCharacterDetailId.subscribe {
+            viewModel.fetchCharacterDetailId.collectUIState {
                 when (it) {
                     is UIState.Error -> {}
                     is UIState.Loading -> {}
@@ -63,6 +63,7 @@ class CharacterDetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fra
                         nameTxt.text = it.data.name
                         genderTxt.text = it.data.gender
                     }
+                    is UIState.Idle -> {}
                 }
             }
         }

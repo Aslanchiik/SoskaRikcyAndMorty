@@ -29,7 +29,7 @@ class EpisodeCharacterDetailFragment :
     }
 
     override fun setupObserves() {
-        viewModel.episodeCharacterDetailState.subscribePaging {
+        viewModel.episodeCharacterDetailState.collectPaging {
             episodeCharacterDetailAdapter.submitData(it)
         }
     }

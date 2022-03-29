@@ -63,7 +63,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
 
     override fun setupRequest() {
         if (args.status == "" || args.gender == "") {
-            if (viewModel.charactersState.value == null) {
+            if (viewModel.characterState.value == null) {
                 viewModel.fetchCharacters("", "", "")
             }
         } else {
@@ -74,12 +74,12 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
     override fun setupObserves() {
         if (isConnected) {
             if (args.status == "" || args.gender == "") {
-                viewModel.charactersState.subscribePaging {
+                viewModel.characterState.collectPaging {
                     characterAdapter.submitData(it)
                 }
             }
         } else {
-            viewModel.charactersStateFilter.subscribePaging {
+            viewModel.characterStateFilter.collectPaging {
                 characterAdapter.submitData(it)
             }
         }

@@ -57,18 +57,18 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(R.layout.fragment_e
         if (args.name == "" && args.episode == "") {
             viewModel.fetchEpisodes("", "")
         } else {
-            viewModel.fetchEpisodesFilter(args.name, args.episode)
+            viewModel.fetchEpisodeFilter(args.name, args.episode)
         }
     }
 
     override fun setupObserves() {
         if (isConnected) {
             if (args.name == "" && args.episode == "") {
-                viewModel.episodeState.subscribePaging {
+                viewModel.episodeState.collectPaging {
                     episodeAdapter.submitData(it)
                 }
             } else {
-                viewModel.episodeStateFilter.subscribePaging {
+                viewModel.episodeStateFilter.collectPaging {
                     episodeAdapter.submitData(it)
                 }
             }
