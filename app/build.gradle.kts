@@ -55,14 +55,14 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
-    implementation ("androidx.core:core-ktx:1.6.0")
-    implementation ("androidx.appcompat:appcompat:1.3.1")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.1")
+    implementation ("androidx.core:core-ktx:1.7.0")
+    implementation ("androidx.appcompat:appcompat:1.4.1")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.3")
+
     implementation ("androidx.legacy:legacy-support-v4:1.0.0")
 
     // glide
     implementation ("com.github.bumptech.glide:glide:4.12.0")
-
     val hiltVersion = "2.41"
     // Hilt
     implementation("com.google.dagger:hilt-android:$hiltVersion")
@@ -105,7 +105,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$version")
 
     // coordinatorLayout
-    implementation("androidx.coordinatorlayout:coordinatorlayout:1.1.0")
+    implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
 
     // Material Design Components
     implementation("com.google.android.material:material:1.5.0")

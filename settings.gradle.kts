@@ -14,27 +14,26 @@ dependencyResolutionManagement {
         mavenCentral()
         maven { url = uri("https://jitpack.io") }
     }
-}
 
-//dependencyResolutionManagement {
-//    versionCatalogs {
-//        create("libs") {
-//            version("groovy", "3.0.5")
-//            version("checkstyle", "8.37")
-//            alias("groovy-core").to("org.codehaus.groovy", "groovy").versionRef("groovy")
-//            alias("groovy-json").to("org.codehaus.groovy", "groovy-json").versionRef("groovy")
-//            alias("groovy-nio").to("org.codehaus.groovy", "groovy-nio").versionRef("groovy")
-//            alias("commons-lang3").to("org.apache.commons", "commons-lang3").version {
-//                strictly("[3.8, 4.0[")
-//                prefer("3.9")
+    rootProject.name = "SoskaRickyAndMorty"
+    include(
+        ":app",
+        ":data",
+        ":domain",
+    )
+}
+//    enableFeaturePreview("VERSION_CATALOGS")
+
+
+//    dependencyResolutionManagement {
+//        versionCatalogs {
+//            create("libs") {
+//                version("retrofit", "2.9.0")
+//
+//                alias("retrofit-base").to("com.squareup.retrofit2", "retrofit").versionRef("retrofit")
+//                alias("retrofit-moshi").to("com.squareup.retrofit2", "converter-moshi").versionRef("retrofit")
+//                alias("retrofit-rx").to("com.squareup.retrofit2", "adapter-rxjava2").versionRef("retrofit")
+//                bundle("retrofit", listOf("retrofit-base", "retrofit-moshi", "retrofit-rx"))
 //            }
 //        }
 //    }
-//}
-
-rootProject.name = "SoskaRickyAndMorty"
-include(
-    ":app",
-    ":data",
-    ":domain",
-)
